@@ -7,20 +7,11 @@ import NavBar from './components/Navbar/Navbar.js';
 import Users from './components/users/users';
 import {BrowserRouter as Router, Switch,Route} from 'react-router-dom';
 import PageNotFound from './components/PageNotFound/PageNotFound';
-import Blogs from './components/Blogs/Blogs';
-import {useState} from 'react'
+import BlogDetails from './components/BlogDetails/BlogDetails';
+import Home from './components/Home/Home';
 
 function App() {
-  const [blogs,setBlogs] = useState([{
-    title:"Css problems",
-    author:"Danny Trejo",
-    texto: "bla bla bla",
-
-}, {
-    title:"Javascript callback problems",
-    author: "Osama Bin Laden",
-    texto: "bla bla bla"
-}])
+  
   return (
     
       <Router> 
@@ -29,13 +20,14 @@ function App() {
       
         <Switch>
           <Route path="/" exact>
+            <Home/>
             <Users/>
           </Route>
           <Route path="/Blogs" exact >
-            <Blogs blogs={blogs}/>
+           
           </Route>
           <Route path="/Blogs/:id" exact >
-            <div>hola</div>
+            <BlogDetails/>
           </Route>
           <Route path="*" exact component={PageNotFound} />
           
