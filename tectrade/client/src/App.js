@@ -9,19 +9,35 @@ import {BrowserRouter as Router, Switch,Route} from 'react-router-dom';
 import PageNotFound from './components/PageNotFound/PageNotFound';
 import BlogDetails from './components/BlogDetails/BlogDetails';
 import Home from './components/Home/Home';
+import Login from './components/Login/Login';
+import Axios from 'axios';
+import {useState} from 'react';
 
 function App() {
+  const [userInfo,SetuserInfo] = useState({});
+  const [loggedIn,setLoggedIn] = useState(false);
+  
+
+  
+
+  const login = () => Axios.get('http://localhost:3001/login').
+  then(res => {
+    console.log(res.data);
+  })
   
   return (
-    
-      <Router> 
-      <NavBar />
-     
-      
+    //{loggedIn ? <h1>Yeii </h1> : <h2>xd</h2>  }
+   <div>
+     {loggedIn ? 
+     <Router> 
+      <NavBar login = {loggedIn}  /> 
         <Switch>
           <Route path="/" exact>
             <Home/>
             <Users/>
+          </Route>
+          <Route path="/Login" exact>
+            <Login/>
           </Route>
           <Route path="/Blogs" exact >
            
@@ -35,7 +51,18 @@ function App() {
         
 
 
+      </Router>: 
+    <Router>
+      
+      <NavBar login = {loggedIn}/>
+      <Login/>
+      
       </Router>
+      
+      }
+    
+      
+      </div>
       
       
 
