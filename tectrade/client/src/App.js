@@ -18,12 +18,14 @@ function App() {
   const [loggedIn,setLoggedIn] = useState(false);
   
 
-  
+  const test = () => {
+    console.log("test");
+  }
 
-  const login = () => Axios.get('http://localhost:3001/login').
-  then(res => {
-    console.log(res.data);
-  })
+  // const login = () => Axios.get('http://localhost:3001/login').
+  // then(res => {
+  //   console.log("hola");
+  // })
   
   return (
     //{loggedIn ? <h1>Yeii </h1> : <h2>xd</h2>  }
@@ -36,9 +38,7 @@ function App() {
             <Home/>
             <Users/>
           </Route>
-          <Route path="/Login" exact>
-            <Login/>
-          </Route>
+          
           <Route path="/Blogs" exact >
            
           </Route>
@@ -55,7 +55,9 @@ function App() {
     <Router>
       
       <NavBar login = {loggedIn}/>
-      <Login/>
+      
+            <Login func = {test}/>
+          
       
       </Router>
       

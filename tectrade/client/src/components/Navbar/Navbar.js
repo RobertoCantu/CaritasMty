@@ -60,10 +60,10 @@ const NavBar = ({login}) => {
             
             <ul className="navbar-nav  ">
               <li className="nav-item">
-                <Link className="nav-link" to="/Logout">Register</Link>
+                <Link className="nav-link" to="/Register">Register</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/Logout">Login</Link>
+                <Link className="nav-link" to="/Login">Login</Link>
               </li>
               
             </ul>

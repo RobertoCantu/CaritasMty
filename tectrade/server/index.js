@@ -1,4 +1,3 @@
-//Express server
 const express = require('express')
 const app = express();
 const mysql = require('mysql2');
@@ -10,24 +9,27 @@ const session = require('express-session');
 
 
 //Middlewares 
+//app.use(bodyParser);
+//app.use(bodyParser.urlencoded({ extended: false })); 
 app.use(express.json());
 app.use(cors({
     origin: ["http://localhost:3000"],
     methods: ["GET", "POST"],
     credentials: true,
 }));
-app.use(cookieParser());
-app.use(express.urlencoded({extended:true}));
+//app.use(cors());
+// app.use(cookieParser());
+ app.use(express.urlencoded({extended:true}));
 
-app.use(session({
-    key: "userId",
-    secret: "secret",
-    resave : false,
-    saveUninitialized: false,
-    cookie: {
-        expires: 60 * 60 * 24,
-    },
-}))
+// app.use(session({
+//     key: "userId",
+//     secret: "secret",
+//     resave : false,
+//     saveUninitialized: false,
+//     cookie: {
+//         expires: 60 * 60 * 24,
+//     },
+// }))
 
 //Database connection
 const db = mysql.createConnection({
@@ -35,35 +37,100 @@ const db = mysql.createConnection({
     host: "localhost",
     password: "password",
     database: "test",
-})
+});
+//db.end();
+
+// db.connect((err) => {
+// if (err){
+//     console.log(err);
+// } else {
+//     console.log("Connect to the MySQL server")
+// }
+// });
+
+
 
 //This would be for register if needed 
-app.post("/login", (req,res) =>{
+// app.post("/register", (req,res) =>{
 
-const username = req.body.username;
-const password = req.body.password;
-//Querie format
-db.query("INSERT INTO user (name,password) VALUES (?,?)",
-[username,password],
-(err,result) =>{
-    if(err){
-        console.log(err);
-    } else {
-        console.log(result);
-    }
-    res.send(console.log("Listo"));
+// const username = req.body.name;
+// const password = req.body.password;
+// //res.send("hola");
+
+// //Querie format
+// db.query("INSERT INTO user (name,password) VALUES (?,?)",
+// [username,password],
+// (err,result) =>{
+//     if(err){
+//         console.log(err);
+//     } else {
+//         console.log(result);
+//     }
+//     //res.send(console.log("Listo"));
     
-}
+// }
 
-)
+// )
 
 
-});
+// });
 
 //Login 
-app.get("/login", (req,res) => {
-    db.query("SELECT * FROM user WHERE ")
+ app.get("/login",  (req,res) => {
+    const xd = req.body.name;
+    //const password = req.body.password;
+    db.connect(err => {
+        if(!err){
+            console.log("DB working");
+        }
+       // res.send("Hola");
+       // insert query 'INSERT INTO blogs (name,password) VALUES ("Hugo","cat")'
+       // SELECT * FROM blogs 
+        db.query('SELECT * FROM blogs'),
+        (err,rows,fields) => {
+            res.end();
+            if (err){
+                console.log(err);
+            }
+            if (rows){
+                res.send(rows);
+            } else {
+                res.send({message:"Username doesnt exist"});
+            }
+            //db.close();
+        }
+    })
+    
+//     db.query("SELECT * from user "),
+//    (err,result) => {
+//        console.log("xd");
+//         if (err){
+//             res.send({err: err})
+//         }
+
+//         if (result) {
+//             res.send(req.body);
+//         } else {
+//             res.send({message:"Username doesnt exist"});
+//         }
+//     }
 } )
+
+app.get('/lol',function(req, res) {
+	
+		db.query('SELECT * FROM pizza WHERE name = "pina"',function(err, rows, fields) {
+			//if(err) throw err
+			if (err) {
+                console.log(err)
+				res.send("hola")
+			} else {
+				// render to views/country/list.ejs template file
+				console.log(rows);
+				res.send(rows);
+			}
+		})
+	
+}) 
 
 
 
