@@ -116,18 +116,23 @@ const db = mysql.createConnection({
 //     }
 } )
 
-app.get('/lol',function(req, res) {
+app.post('/lol',function(req, res) {
+
+    const userName = req.body.name;
+    
 	
-		db.query('SELECT * FROM pizza WHERE name = "pina"',function(err, rows, fields) {
+		db.query('SELECT * FROM pizza WHERE name = ?', [userName], function(err, rows, fields) {
 			//if(err) throw err
+            
 			if (err) {
                 console.log(err)
 				res.send("hola")
-			} else {
-				// render to views/country/list.ejs template file
-				console.log(rows);
-				res.send(rows);
-			}
+			} 
+            if (rows.length > 0){
+                res.send(rows);
+            } else {
+                res.send({message:"User doesn't exist"})
+            }
 		})
 	
 }) 

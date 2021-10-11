@@ -56,7 +56,7 @@ function App() {
       
       <NavBar login = {loggedIn}/>
       
-            <Login func = {test}/>
+            <Login func = {loggedIn => setLoggedIn(loggedIn)}/>
           
       
       </Router>
