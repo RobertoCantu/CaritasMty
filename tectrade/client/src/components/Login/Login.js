@@ -15,7 +15,7 @@ function Login({func}) {
      
         //console.log("Si entra");
         
-        Axios.post('http://localhost:3001/lol',{
+        Axios.post('http://localhost:3001/login',{
             name: email,
             password: password,
         }).

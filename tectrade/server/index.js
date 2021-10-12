@@ -9,8 +9,6 @@ const session = require('express-session');
 
 
 //Middlewares 
-//app.use(bodyParser);
-//app.use(bodyParser.urlencoded({ extended: false })); 
 app.use(express.json());
 app.use(cors({
     origin: ["http://localhost:3000"],
@@ -38,15 +36,7 @@ const db = mysql.createConnection({
     password: "password",
     database: "test",
 });
-//db.end();
 
-// db.connect((err) => {
-// if (err){
-//     console.log(err);
-// } else {
-//     console.log("Connect to the MySQL server")
-// }
-// });
 
 
 
@@ -127,7 +117,7 @@ app.get('/login', (req,res) =>{
 
 })
 
-app.post('/lol',function(req, res) {
+app.post('/login',function(req, res) {
 
     const userName = req.body.name;
     
