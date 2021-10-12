@@ -18,18 +18,18 @@ app.use(cors({
     credentials: true,
 }));
 //app.use(cors());
-// app.use(cookieParser());
+ app.use(cookieParser());
  app.use(express.urlencoded({extended:true}));
 
-// app.use(session({
-//     key: "userId",
-//     secret: "secret",
-//     resave : false,
-//     saveUninitialized: false,
-//     cookie: {
-//         expires: 60 * 60 * 24,
-//     },
-// }))
+app.use(session({
+    key: "userId",
+    secret: "secret",
+    resave : false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 60 * 60 * 24,
+    },
+}))
 
 //Database connection
 const db = mysql.createConnection({
@@ -76,30 +76,31 @@ const db = mysql.createConnection({
 // });
 
 //Login 
- app.get("/login",  (req,res) => {
-    const xd = req.body.name;
-    //const password = req.body.password;
-    db.connect(err => {
-        if(!err){
-            console.log("DB working");
-        }
-       // res.send("Hola");
-       // insert query 'INSERT INTO blogs (name,password) VALUES ("Hugo","cat")'
-       // SELECT * FROM blogs 
-        db.query('SELECT * FROM blogs'),
-        (err,rows,fields) => {
-            res.end();
-            if (err){
-                console.log(err);
-            }
-            if (rows){
-                res.send(rows);
-            } else {
-                res.send({message:"Username doesnt exist"});
-            }
-            //db.close();
-        }
-    })
+//  app.get("/login",  (req,res) => {
+//     const xd = req.body.name;
+//     //const password = req.body.password;
+//     db.connect(err => {
+//         if(!err){
+//             console.log("DB working");
+//         }
+//        // res.send("Hola");
+//        // insert query 'INSERT INTO blogs (name,password) VALUES ("Hugo","cat")'
+//        // SELECT * FROM blogs 
+//         db.query('SELECT * FROM blogs'),
+//         (err,rows,fields) => {
+//             res.end();
+//             if (err){
+//                 console.log(err);
+//             }
+//             if (rows){
+               
+//                 res.send(rows);
+//             } else {
+//                 res.send({message:"Username doesnt exist"});
+//             }
+//             //db.close();
+//         }
+//     })
     
 //     db.query("SELECT * from user "),
 //    (err,result) => {
@@ -114,7 +115,17 @@ const db = mysql.createConnection({
 //             res.send({message:"Username doesnt exist"});
 //         }
 //     }
-} )
+//} )
+
+app.get('/login', (req,res) =>{
+    //Verify if a session already exists
+    if(req.session.user){
+        res.send({loggedIn:true, user: req.session.user})
+    } else{
+        res.send({loggedIn:false});
+    }
+
+})
 
 app.post('/lol',function(req, res) {
 
@@ -129,6 +140,8 @@ app.post('/lol',function(req, res) {
 				res.send("hola")
 			} 
             if (rows.length > 0){
+                req.session.user = rows;
+                console.log(req.session.user);
                 res.send(rows);
             } else {
                 res.send({message:"User doesn't exist"})

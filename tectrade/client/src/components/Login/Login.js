@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import {useHistory} from 'react-router-dom';
 import './Login.css'
 import  Axios  from 'axios';
@@ -9,6 +9,7 @@ function Login({func}) {
     const [password, setPassword] = useState("");
     const [userNotExist, setUserNotExist] = useState(false);
     let history = useHistory();
+    Axios.defaults.withCredentials = true;
     const submit = (e) => {
         e.preventDefault();
      
@@ -33,7 +34,8 @@ function Login({func}) {
             }
         })
     }
-  
+    
+    
     return (
         <div className="container text-center">
             <form action="" method="post"> 

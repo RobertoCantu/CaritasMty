@@ -11,16 +11,45 @@ import BlogDetails from './components/BlogDetails/BlogDetails';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import Axios from 'axios';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import {useHistory} from 'react-router-dom';
 
 function App() {
   const [userInfo,SetuserInfo] = useState({});
   const [loggedIn,setLoggedIn] = useState(false);
-  
+  const [testo,setTesto] = useState(false);
+  let history = useHistory();
+  Axios.defaults.withCredentials = true;
 
   const test = () => {
     console.log("test");
   }
+
+  useEffect(() => {
+    Axios.get("http://localhost:3001/login").
+    then(res => {
+      console.log(res.data);
+      console.log("perro");
+        if(res.data.loggedIn == true){
+            setLoggedIn(true);
+            console.log(loggedIn);
+        }
+    })
+}, [])
+
+  
+
+  // useEffect(() => {
+  //   if(testo == false){
+  //     history.push('/login');
+  //   }
+  //   console.log("hola");
+
+  // }, []);
+
+  // if(testo == false){
+  //   history.push('/login');
+  // }
 
   // const login = () => Axios.get('http://localhost:3001/login').
   // then(res => {
@@ -55,9 +84,13 @@ function App() {
     <Router>
       
       <NavBar login = {loggedIn}/>
-      
+      <Switch>
+            <Route path="/login" exact>
             <Login func = {loggedIn => setLoggedIn(loggedIn)}/>
+            </Route>
           
+          <Route path="*" exact component={PageNotFound} />
+          </Switch>
       
       </Router>
       

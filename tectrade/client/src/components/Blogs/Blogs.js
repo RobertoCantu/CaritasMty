@@ -8,7 +8,7 @@ function Blogs(props) {
     return (
         <div>
             {blogs.map(blog => (
-                <div className="card" style={{width: '18rem'}}>
+                <div key={blog.id} className="card" style={{width: '18rem'}}>
                 
                 <div className="card-body">
                   <h5 className="card-title">{blog.title}</h5>
