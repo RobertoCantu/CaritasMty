@@ -11,8 +11,11 @@ import BlogDetails from './components/BlogDetails/BlogDetails';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import Axios from 'axios';
-import {useState, useEffect} from 'react';
+import {useState, useEffect,Suspense} from 'react';
 import {useHistory} from 'react-router-dom';
+import PublicRoute from './Routes/PublicRoute';
+import PrivateRoute from './Routes/PrivateRoute';
+
 
 function App() {
   const [userInfo,SetuserInfo] = useState({});
@@ -25,18 +28,19 @@ function App() {
     console.log("test");
   }
 
-  useEffect(() => {
-    Axios.get("http://localhost:3001/login").
-    then(res => {
-      console.log(res.data);
-      console.log("perro");
-        if(res.data.loggedIn == true){
-            setLoggedIn(true);
-            console.log(loggedIn);
-        }
-    })
-}, [])
+//   useEffect(() => {
+//     Axios.get("http://localhost:3001/login").
+//     then(res => {
+//       console.log(res.data);
+//       console.log("perro");
+//         if(res.data.loggedIn == true){
+//             setLoggedIn(true);
+//             console.log(loggedIn);
+//         }
+//     })
+// }, [])
 
+console.log(loggedIn);
   
 
   // useEffect(() => {
@@ -58,46 +62,89 @@ function App() {
   
   return (
     //{loggedIn ? <h1>Yeii </h1> : <h2>xd</h2>  }
-   <div>
-     {loggedIn ? 
-     <Router> 
-      <NavBar login = {loggedIn}  /> 
-        <Switch>
-          <Route path="/" exact>
-            <Home/>
-            <Users/>
-          </Route>
+
+    <Router>
+      <Switch>
+
+      <PublicRoute
+      path = "/login"
+      isAuth = {loggedIn}
+      >
+        <Login func = {loggedIn => setLoggedIn(loggedIn)}/>
+
+      </PublicRoute>
+      <PrivateRoute
+      path = "/"
+      isAuth = {loggedIn}
+      >
+        <Home/>
+
+        </PrivateRoute>
+
+      <Route path="*" exact component={PageNotFound} />
+      </Switch>
+
+    
+
+
+    </Router>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //  <div>
+  //    {loggedIn ? 
+  //    <Router> 
+  //     <NavBar login = {loggedIn}  /> 
+  //       <Switch>
+  //         <Route path="/" exact>
+  //           <Home/>
+  //           <Users/>
+  //         </Route>
           
-          <Route path="/Blogs" exact >
+  //         <Route path="/Blogs" exact >
            
-          </Route>
-          <Route path="/Blogs/:id" exact >
-            <BlogDetails/>
-          </Route>
-          <Route path="*" exact component={PageNotFound} />
+  //         </Route>
+  //         <Route path="/Blogs/:id" exact >
+  //           <BlogDetails/>
+  //         </Route>
+  //         <Route path="*" exact component={PageNotFound} />
           
-        </Switch>
+  //       </Switch>
         
 
 
-      </Router>: 
-    <Router>
+  //     </Router>: 
+  //   <Router>
       
-      <NavBar login = {loggedIn}/>
-      <Switch>
-            <Route path="/login" exact>
-            <Login func = {loggedIn => setLoggedIn(loggedIn)}/>
-            </Route>
+  //     <NavBar login = {loggedIn}/>
+  //     <Switch>
+  //           <Route path="/login" exact>
+  //           <Login func = {loggedIn => setLoggedIn(loggedIn)}/>
+  //           </Route>
           
-          <Route path="*" exact component={PageNotFound} />
-          </Switch>
+  //         <Route path="*" exact component={PageNotFound} />
+  //         </Switch>
       
-      </Router>
+  //     </Router>
       
-      }
+  //     }
     
       
-      </div>
+  //     </div>
       
       
 
