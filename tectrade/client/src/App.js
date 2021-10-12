@@ -20,25 +20,22 @@ import PrivateRoute from './Routes/PrivateRoute';
 function App() {
   const [userInfo,SetuserInfo] = useState({});
   const [loggedIn,setLoggedIn] = useState(false);
-  const [testo,setTesto] = useState(false);
   let history = useHistory();
   Axios.defaults.withCredentials = true;
 
-  const test = () => {
-    console.log("test");
-  }
+  
 
-//   useEffect(() => {
-//     Axios.get("http://localhost:3001/login").
-//     then(res => {
-//       console.log(res.data);
-//       console.log("perro");
-//         if(res.data.loggedIn == true){
-//             setLoggedIn(true);
-//             console.log(loggedIn);
-//         }
-//     })
-// }, [])
+  useEffect(() => {
+    Axios.get("http://localhost:3001/login").
+    then(res => {
+      console.log(res.data);
+      console.log("perro");
+        if(res.data.loggedIn == true){
+            setLoggedIn(true);
+            console.log(loggedIn);
+        }
+    })
+}, [])
 
 console.log(loggedIn);
   
@@ -62,7 +59,11 @@ console.log(loggedIn);
   
   return (
     //{loggedIn ? <h1>Yeii </h1> : <h2>xd</h2>  }
+    <div>
+    <NavBar isAuth = {loggedIn}> 
 
+    </NavBar>
+ 
     <Router>
       <Switch>
 
@@ -88,6 +89,7 @@ console.log(loggedIn);
 
 
     </Router>
+    </div>
 
 
 

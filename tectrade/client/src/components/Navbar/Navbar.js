@@ -7,11 +7,11 @@ import './Navbar.css';
 import { Link } from 'react-router-dom';
 
 
-const NavBar = ({login}) => {
+const NavBar = ({isAuth}) => {
  
     return (
       <div>
-        {login ? <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        {isAuth ? <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
           <a className="navbar-brand" href="#">Caritas</a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
