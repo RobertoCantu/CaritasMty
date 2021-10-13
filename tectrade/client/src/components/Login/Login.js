@@ -1,13 +1,16 @@
-import React, {useState,useEffect} from 'react'
+import React, {useState,useEffect,useContext} from 'react'
 import {useHistory} from 'react-router-dom';
 import './Login.css'
 import  Axios  from 'axios';
+import {UserContext} from '../../Helper/Context';
+
 
 function Login({func}) {
    
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [userNotExist, setUserNotExist] = useState(false);
+    const {setLoggedIn} = useContext(UserContext);
     let history = useHistory();
     Axios.defaults.withCredentials = true;
     const submit = (e) => {
@@ -29,7 +32,8 @@ function Login({func}) {
                 setUserNotExist(true);
             } else {
                 console.log("Entro");
-                func(true);
+                //func(true);
+                setLoggedIn(true);
                 history.push("/");
             }
         })

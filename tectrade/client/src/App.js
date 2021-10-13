@@ -15,6 +15,7 @@ import {useState, useEffect,Suspense} from 'react';
 import {useHistory} from 'react-router-dom';
 import PublicRoute from './Routes/PublicRoute';
 import PrivateRoute from './Routes/PrivateRoute';
+import {UserContext} from './Helper/Context';
 
 
 function App() {
@@ -66,21 +67,27 @@ console.log(loggedIn);
  
     <Router>
       <Switch>
-
+      
       <PublicRoute
-      path = "/login"
+       path = "/login" exact
       isAuth = {loggedIn}
       >
+        <UserContext.Provider value={{setLoggedIn}}>
         <Login func = {loggedIn => setLoggedIn(loggedIn)}/>
-
+        </UserContext.Provider>
       </PublicRoute>
+     
+      
       <PrivateRoute
-      path = "/"
+      path = "/" exact
       isAuth = {loggedIn}
       >
+        
+        <UserContext.Provider value={{setLoggedIn}}>
         <Home/>
-
+        </UserContext.Provider>
         </PrivateRoute>
+      
 
       <Route path="*" exact component={PageNotFound} />
       </Switch>
