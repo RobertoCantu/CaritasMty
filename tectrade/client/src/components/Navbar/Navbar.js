@@ -6,13 +6,21 @@ import Nav from 'react-bootstrap/Nav';
 import './Navbar.css';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../Helper/Context';
+import Axios from 'axios';
 
 
 const NavBar = ({isAuth}) => {
   const {setLoggedIn} = useContext(UserContext);
+  Axios.defaults.withCredentials = true;
 
   const logOut = (e) => {
-    setLoggedIn(false);
+    sessionStorage.removeItem('UserId'); 
+    Axios.get('http://localhost:3001/logout').
+    then((res) =>{
+      
+      console.log(res);
+      setLoggedIn(false);
+    })
     
   }
  

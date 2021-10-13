@@ -140,6 +140,12 @@ app.post('/login',function(req, res) {
 	
 }) 
 
+app.get('/logout', (req,res) => {
+    
+    res.clearCookie("userId");
+    res.send({message:"Cookie cleared successfully"});
+})
+
 
 
 app.listen(3001, () => {
