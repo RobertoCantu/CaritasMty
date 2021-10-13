@@ -21,6 +21,11 @@ import {UserContext} from './Helper/Context';
 function App() {
   const [userInfo,SetuserInfo] = useState({});
   const [loggedIn,setLoggedIn] = useState(false);
+  const [user,setUser] = useState({
+    id: "",
+    email: "",
+    password: "",
+  });
   let history = useHistory();
   Axios.defaults.withCredentials = true;
 
@@ -61,9 +66,9 @@ console.log(loggedIn);
   return (
     //{loggedIn ? <h1>Yeii </h1> : <h2>xd</h2>  }
     <div>
-    <NavBar isAuth = {loggedIn}> 
-
-    </NavBar>
+      <UserContext.Provider value={{setLoggedIn}}>
+    <NavBar isAuth = {loggedIn}/> 
+    </UserContext.Provider>
  
     <Router>
       <Switch>

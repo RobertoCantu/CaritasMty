@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 //import logo from '../../img/logo.png';
 import './Navbar.css';
 import { Link } from 'react-router-dom';
+import { UserContext } from '../../Helper/Context';
 
 
 const NavBar = ({isAuth}) => {
+  const {setLoggedIn} = useContext(UserContext);
+
+  const logOut = (e) => {
+    setLoggedIn(false);
+    
+  }
  
     return (
       <div>
@@ -42,7 +49,7 @@ const NavBar = ({isAuth}) => {
                 <Link className="nav-link" to="/Help">Help</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/Logout">Log out</Link>
+                <Link onClick= {logOut} className="nav-link" to="">Log out</Link>
               </li>
               
             </ul>
