@@ -7,6 +7,9 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
+//Process env Port process.env.Port 
+const port = process.env.PORT || 3001;
+
 
 //Middlewares 
 app.use(express.json());
@@ -148,6 +151,6 @@ app.get('/logout', (req,res) => {
 
 
 
-app.listen(3001, () => {
-    console.log("It works")
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
 })

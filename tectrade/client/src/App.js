@@ -35,11 +35,12 @@ function App() {
     Axios.get("http://localhost:3001/login").
     then(res => {
       console.log(res.data);
-      console.log("perro");
         if(res.data.loggedIn == true){
             setLoggedIn(true);
             console.log(loggedIn);
         }
+    }).catch(err => {
+      console.log(err);
     })
 }, [])
 
@@ -50,7 +51,6 @@ console.log(loggedIn);
   //   if(testo == false){
   //     history.push('/login');
   //   }
-  //   console.log("hola");
 
   // }, []);
 
@@ -64,7 +64,6 @@ console.log(loggedIn);
   // })
   
   return (
-    //{loggedIn ? <h1>Yeii </h1> : <h2>xd</h2>  }
     <div>
       <UserContext.Provider value={{setLoggedIn}}>
     <NavBar isAuth = {loggedIn}/> 
@@ -96,10 +95,6 @@ console.log(loggedIn);
 
       <Route path="*" exact component={PageNotFound} />
       </Switch>
-
-    
-
-
     </Router>
     </div>
 
