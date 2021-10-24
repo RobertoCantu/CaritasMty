@@ -18,16 +18,21 @@ function EmployeeTickets() {
     //console.log(user.email);
     
     return (
-        <div>
+        <div >
             <h1>My tickets</h1>
+            <div className="container row">
             {tickets.map(ticket => (
-                <div key={ticket.id}>
-                    <h2>{ticket.name}</h2>
-                    <h2>{ticket.department}</h2>
-                    <h2>{ticket.description}</h2>
-                    <h2>{ticket.date}</h2>
+                <div className="card m-3"  style={{width: '18rem'}}>
+                <img className="card-img-top" src="..." alt="Card image cap"/>
+                <div className="card-body">
+                  <h5 className="card-title">{ticket.name}</h5>
+                  <p className="card-text">{ticket.description}</p>
+                  <a href="#" className="btn btn-info">Edit</a>
+                  <a href="#" className="btn btn-danger">Delete</a>
                 </div>
+              </div>
             ))}
+            </div>
             
         </div>
     )
