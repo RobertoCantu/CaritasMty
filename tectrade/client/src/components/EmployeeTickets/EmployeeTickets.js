@@ -22,7 +22,7 @@ function EmployeeTickets() {
             <h1>My tickets</h1>
             <div className="container row">
             {tickets.map(ticket => (
-                <div className="card m-3"  style={{width: '18rem'}}>
+                <div key={ticket.id} className="card m-3"  style={{width: '18rem'}}>
                 <img className="card-img-top" src="..." alt="Card image cap"/>
                 <div className="card-body">
                   <h5 className="card-title">{ticket.name}</h5>
