@@ -10,6 +10,25 @@ const session = require('express-session');
 //Process env Port process.env.Port 
 const port = process.env.PORT || 3001;
 
+//Testing tickets
+const tickets = [
+{
+id:"1",    
+name:"Impresora falla",
+departament:"Administracion",
+description:"No tiene tinta",
+date:"2021-10-22",
+employeeEmail: "test@test"
+},
+{
+id:"2",    
+name:"No funciona el clima",
+departament:"Administracion",
+description:"El clima esta soltando mucha agua",
+date:"2021-10-22",
+employeeEmail: "test@test"}
+]
+
 
 //Middlewares 
 app.use(express.json());
@@ -147,6 +166,16 @@ app.get('/logout', (req,res) => {
     
     res.clearCookie("userId");
     res.send({message:"Cookie cleared successfully"});
+})
+
+//Route for sending tickets based on employee username to the front end
+app.get('/:username/tickets', (req,res) => {
+    console.log(req.params);
+    const username = req.params.username;
+    const result = tickets.filter(ticket => ticket.employeeEmail == username);
+    console.log(result);
+    res.send(result);
+    
 })
 
 

@@ -17,15 +17,15 @@ import PublicRoute from './Routes/PublicRoute';
 import PrivateRoute from './Routes/PrivateRoute';
 import {UserContext} from './Helper/Context';
 import TicketForm from './components/TicketForm/TicketForm';
+import EmployeeTickets from './components/EmployeeTickets/EmployeeTickets';
 
 
 function App() {
   const [userInfo,SetuserInfo] = useState({});
   const [loggedIn,setLoggedIn] = useState(true);
   const [user,setUser] = useState({
-    id: "",
-    email: "",
-    password: "",
+    id: "1",
+    email: "test@test",
   });
   let history = useHistory();
   Axios.defaults.withCredentials = true;
@@ -90,6 +90,16 @@ console.log(loggedIn);
         >
         <UserContext.Provider value={{setLoggedIn}}>
           <TicketForm/>
+          </UserContext.Provider>
+        </PrivateRoute>
+
+        <PrivateRoute 
+        exact path="/tickets" 
+        isAuth={loggedIn}
+        >
+          
+        <UserContext.Provider value={{user}}>
+          <EmployeeTickets/>
           </UserContext.Provider>
         </PrivateRoute>
 
