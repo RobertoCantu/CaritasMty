@@ -2,6 +2,8 @@ import React from 'react'
 import {Route, Redirect} from 'react-router-dom';
 
 function PrivateRoute({children,isAuth,...rest}) {
+    console.log(`Esta autorizado? ${isAuth}`);
+
     return (
         <Route 
         {...rest}

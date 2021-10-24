@@ -18,11 +18,12 @@ import PrivateRoute from './Routes/PrivateRoute';
 import {UserContext} from './Helper/Context';
 import TicketForm from './components/TicketForm/TicketForm';
 import EmployeeTickets from './components/EmployeeTickets/EmployeeTickets';
+import TicketDetails from './components/TicketDetails/TicketDetails';
 
 
 function App() {
   const [userInfo,SetuserInfo] = useState({});
-  const [loggedIn,setLoggedIn] = useState(true);
+  const [loggedIn,setLoggedIn] = useState(null);
   const [user,setUser] = useState({
     id: "1",
     email: "test@test",
@@ -40,11 +41,13 @@ function App() {
             setLoggedIn(true);
             console.log(loggedIn);
             console.log("xd")
+        } else {
+          setLoggedIn(false);
         }
     }).catch(err => {
       console.log(err);
     })
-}, [loggedIn])
+}, [])
 
 console.log(loggedIn);
   
@@ -64,8 +67,18 @@ console.log(loggedIn);
   // then(res => {
   //   console.log("hola");
   // })
+  if(loggedIn == null){
+    return (
+      <div>Loading Page...</div>
+    )
+  } else {
+
+
+  
   
   return (
+
+   
     <div>
       
  
@@ -83,7 +96,8 @@ console.log(loggedIn);
         <Login func = {loggedIn => setLoggedIn(loggedIn)}/>
         </UserContext.Provider>
       </PublicRoute>
-     
+
+      
       <PrivateRoute 
         exact path="/create" 
         isAuth={loggedIn}
@@ -100,6 +114,16 @@ console.log(loggedIn);
           
         <UserContext.Provider value={{user}}>
           <EmployeeTickets/>
+          </UserContext.Provider>
+        </PrivateRoute>
+
+        <PrivateRoute 
+        exact path="/tickets/:id" 
+        isAuth={loggedIn}
+        >
+          
+        <UserContext.Provider value={{user}}>
+          <TicketDetails/>
           </UserContext.Provider>
         </PrivateRoute>
 
@@ -185,6 +209,7 @@ console.log(loggedIn);
 
     
   );
+}
 }
 
 export default App;
