@@ -18,7 +18,7 @@ function Home() {
     return (
         
         <div className="home">
-            <h1>Soy home xd</h1>
+            <h1>My Tickets</h1>
             <Blogs blogs={blogs}/>
         </div>
     )

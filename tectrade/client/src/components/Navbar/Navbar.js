@@ -18,7 +18,7 @@ const NavBar = ({isAuth}) => {
     Axios.get('http://localhost:3001/logout').
     then((res) =>{
       
-      console.log(res);
+      //console.log(res);
       setLoggedIn(false);
     })
     
@@ -28,7 +28,7 @@ const NavBar = ({isAuth}) => {
       <div>
         {isAuth ? <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">Caritas</a>
+          <Link className="navbar-brand" to="#">Caritas</Link>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -38,7 +38,7 @@ const NavBar = ({isAuth}) => {
                 <Link className="nav-link active" aria-current="page" to="/">Home</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/Blogs">Blogs</Link>
+                <Link className="nav-link" to="/create">Ticket</Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/Resources">Resources</Link>

@@ -16,11 +16,12 @@ import {useHistory} from 'react-router-dom';
 import PublicRoute from './Routes/PublicRoute';
 import PrivateRoute from './Routes/PrivateRoute';
 import {UserContext} from './Helper/Context';
+import TicketForm from './components/TicketForm/TicketForm';
 
 
 function App() {
   const [userInfo,SetuserInfo] = useState({});
-  const [loggedIn,setLoggedIn] = useState(false);
+  const [loggedIn,setLoggedIn] = useState(true);
   const [user,setUser] = useState({
     id: "",
     email: "",
@@ -38,11 +39,12 @@ function App() {
         if(res.data.loggedIn == true){
             setLoggedIn(true);
             console.log(loggedIn);
+            console.log("xd")
         }
     }).catch(err => {
       console.log(err);
     })
-}, [])
+}, [loggedIn])
 
 console.log(loggedIn);
   
@@ -65,15 +67,16 @@ console.log(loggedIn);
   
   return (
     <div>
-      <UserContext.Provider value={{setLoggedIn}}>
-    <NavBar isAuth = {loggedIn}/> 
-    </UserContext.Provider>
+      
  
     <Router>
+    <UserContext.Provider value={{setLoggedIn}}>
+    <NavBar isAuth = {loggedIn}/> 
+    </UserContext.Provider>
       <Switch>
       
       <PublicRoute
-       path = "/login" exact
+      exact path = "/login"
       isAuth = {loggedIn}
       >
         <UserContext.Provider value={{setLoggedIn}}>
@@ -81,9 +84,18 @@ console.log(loggedIn);
         </UserContext.Provider>
       </PublicRoute>
      
-      
+      <PrivateRoute 
+        exact path="/create" 
+        isAuth={loggedIn}
+        >
+        <UserContext.Provider value={{setLoggedIn}}>
+          <TicketForm/>
+          </UserContext.Provider>
+        </PrivateRoute>
+
+
       <PrivateRoute
-      path = "/" exact
+      exact path = "/"
       isAuth = {loggedIn}
       >
         
@@ -91,6 +103,8 @@ console.log(loggedIn);
         <Home/>
         </UserContext.Provider>
         </PrivateRoute>
+
+        
       
 
       <Route path="*" exact component={PageNotFound} />
