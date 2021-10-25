@@ -24,6 +24,7 @@ import TicketDetails from './components/TicketDetails/TicketDetails';
 function App() {
   const [userInfo,SetuserInfo] = useState({});
   const [loggedIn,setLoggedIn] = useState(null);
+  const [tickets,setTickets] = useState([]);
   const [user,setUser] = useState({
     id: "1",
     email: "test@test",
@@ -32,15 +33,13 @@ function App() {
   Axios.defaults.withCredentials = true;
 
   
-
+//Obtain user information
   useEffect(() => {
     Axios.get("http://localhost:3001/login").
     then(res => {
       console.log(res.data);
         if(res.data.loggedIn == true){
             setLoggedIn(true);
-            console.log(loggedIn);
-            console.log("xd")
         } else {
           setLoggedIn(false);
         }
@@ -49,7 +48,16 @@ function App() {
     })
 }, [])
 
-console.log(loggedIn);
+//Obtain tickets information
+useEffect(() => {
+  Axios.get(`http://localhost:3001/${user.email}/tickets`).
+  then((res) => {
+      setTickets(res.data);
+  }).catch(error => {
+      console.log(error);
+  })
+}, []);
+
   
 
   // useEffect(() => {
@@ -112,7 +120,7 @@ console.log(loggedIn);
         isAuth={loggedIn}
         >
           
-        <UserContext.Provider value={{user}}>
+        <UserContext.Provider value={{user,tickets}}>
           <EmployeeTickets/>
           </UserContext.Provider>
         </PrivateRoute>
@@ -122,7 +130,7 @@ console.log(loggedIn);
         isAuth={loggedIn}
         >
           
-        <UserContext.Provider value={{user}}>
+        <UserContext.Provider value={{user,tickets}}>
           <TicketDetails/>
           </UserContext.Provider>
         </PrivateRoute>

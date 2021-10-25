@@ -5,17 +5,9 @@ import { Link } from 'react-router-dom';
 
 
 function EmployeeTickets() {
-    const [tickets,setTickets] = useState([]);
-    const {user} = useContext(UserContext);
+    const {tickets} = useContext(UserContext);
 
-    useEffect(() => {
-        axios.get(`http://localhost:3001/${user.email}/tickets`).
-        then((res) => {
-            setTickets(res.data);
-        }).catch(error => {
-            console.log(error);
-        })
-    }, []);
+   
  
     return (
         <div >
