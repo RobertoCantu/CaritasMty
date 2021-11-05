@@ -2,6 +2,7 @@ const express = require('express')
 const app = express();
 const mysql = require('mysql2');
 const cors = require('cors');
+const sql = require('mssql');
 
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -52,6 +53,25 @@ app.use(session({
 }))
 
 //Database connection
+//Sql server Connection Working
+// const dbSettings = {
+//     user: "root",
+//     password: "1234",
+//     server: "ROBERTOFIT",
+//     database: "Caritas",
+//     options: { 
+//         trustServerCertificate: true,
+//         } 
+// }
+
+// async function getConnection(){
+//     const pool = await sql.connect(dbSettings);
+//     const result = await pool.request().query("SELECT 1");
+//     console.log(result);
+
+// }
+
+//getConnection();
 const db = mysql.createConnection({
     user: "root",
     host: "localhost",
