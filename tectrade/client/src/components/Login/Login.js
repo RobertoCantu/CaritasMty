@@ -18,7 +18,7 @@ function Login() {
         e.preventDefault();        
         Axios.post('http://localhost:3001/login',{
             userEmail: email,
-            password: password,
+            userPassword: password,
         }).
         then((res,err) => {
             if(err){
@@ -40,7 +40,7 @@ function Login() {
             <form action="" method="post"> 
                 <h1>Please Sign in</h1>
                 {userNotExist && <div className="alert alert-danger" role="alert">
-                     Username doesn't exist
+                     Invalid Username/Password
                 </div>}
                 <label htmlFor="email" className="sr-only"></label>
                 <input type="email" className="form-control" onChange = {(e) => {setEmail(e.target.value)}} placeholder="Email" required autoFocus value={email} />

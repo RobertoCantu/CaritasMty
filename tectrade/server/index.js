@@ -1,9 +1,7 @@
 const express = require('express')
 const app = express();
-const mysql = require('mysql2');
 const cors = require('cors');
 const sql = require('mssql');
-
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -84,51 +82,6 @@ getConnection();
 //     database: "test",
 // });
 
-
-
-
-//Login 
-//  app.get("/login",  (req,res) => {
-//     const xd = req.body.name;
-//     //const password = req.body.password;
-//     db.connect(err => {
-//         if(!err){
-//             console.log("DB working");
-//         }
-//        // res.send("Hola");
-//        // insert query 'INSERT INTO blogs (name,password) VALUES ("Hugo","cat")'
-//        // SELECT * FROM blogs 
-//         db.query('SELECT * FROM blogs'),
-//         (err,rows,fields) => {
-//             res.end();
-//             if (err){
-//                 console.log(err);
-//             }
-//             if (rows){
-               
-//                 res.send(rows);
-//             } else {
-//                 res.send({message:"Username doesnt exist"});
-//             }
-//             //db.close();
-//         }
-//     })
-    
-//     db.query("SELECT * from user "),
-//    (err,result) => {
-//        console.log("xd");
-//         if (err){
-//             res.send({err: err})
-//         }
-
-//         if (result) {
-//             res.send(req.body);
-//         } else {
-//             res.send({message:"Username doesnt exist"});
-//         }
-//     }
-//} )
-
 app.get('/login', (req,res) =>{
     //Verify if a session already exists
     if(req.session.user){
@@ -140,14 +93,17 @@ app.get('/login', (req,res) =>{
 })
 
 app.post('/login',async function(req, res) {
-
-    const userEmail = req.body.userEmail;
+    
+    const userEmail = await req.body.userEmail;
+    const userPassword = await req.body.userPassword;
+    console.log(userPassword);
     try{
         const pool =  await sql.connect(dbSettings);
         const result= await pool
         .request()
         .input("Email",userEmail)
-        .query('SELECT * FROM users where Email = @Email');
+        .input("Password",userPassword)
+        .query('SELECT * FROM users where Email = @Email AND Password = @Password');
         if(result.recordset.length > 0){
             req.session.user = result.recordset;
             //console.log(req.session.user);
@@ -156,7 +112,7 @@ app.post('/login',async function(req, res) {
             res.send({message:"User doesn't exist"});
         }
     } catch(e){
-        //console.log(e);
+        console.log(e);
     }
 }) 
 
@@ -167,12 +123,30 @@ app.get('/logout', (req,res) => {
 })
 
 //Route for sending tickets based on employee username to the front end
-app.get('/:username/tickets', (req,res) => {
-    console.log(req.params);
-    const username = req.params.username;
-    const result = tickets.filter(ticket => ticket.employeeEmail == username);
-    console.log(result);
-    res.send(result);
+app.get('/:usernameId/tickets', async (req,res) => {
+    
+    const usernameId = req.params.usernameId;
+    try{
+        const pool =  await sql.connect(dbSettings);
+        const result= await pool
+        .request()
+        .input("UsernameId", usernameId)
+        .query('SELECT * FROM users INNER JOIN tickets ON users.UserId = tickets.UserId WHERE users.UserId = @UsernameId AND tickets.UserId = @UsernameId');
+        console.log(result);
+        // if(result.recordset.length > 0){
+        //     req.session.user = result.recordset;
+        //     //console.log(req.session.user);
+        //     res.send(result.recordset);
+        // } else {
+        //     res.send({message:"User doesn't exist"});
+        // }
+    } catch(e){
+        console.log(e);
+    }
+
+    //const result = tickets.filter(ticket => ticket.employeeEmail == username);
+    //console.log(result);
+   // res.send(result);
     
 })
 

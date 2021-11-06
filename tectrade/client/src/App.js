@@ -40,11 +40,12 @@ function App() {
         if(res.data.loggedIn == true){
           const userInfo = res.data.user;
           console.log(userInfo);
-            setUser({...user,
+            setUser({
               id: userInfo[0].UserId,
               email: userInfo[0].Email,
               firstName: userInfo[0].FirstName,
               lastName: userInfo[0].LastName,
+              tickets: [],
               loggedIn:true});
               
         } else {

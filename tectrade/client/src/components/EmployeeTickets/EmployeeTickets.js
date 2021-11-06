@@ -10,7 +10,7 @@ function EmployeeTickets() {
 
   //Obtain tickets information
   useEffect(() => {
-  Axios.get(`http://localhost:3001/${user.email}/tickets`).
+  Axios.get(`http://localhost:3001/${user.id}/tickets`).
   then((res) => {
     setUser({...user,tickets:res.data});
   }).catch(error => {
