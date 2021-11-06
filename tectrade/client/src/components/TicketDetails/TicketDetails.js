@@ -18,7 +18,7 @@ function TicketDetails() {
    
     return (
         <div>
-            {result.length ? <h1>{result[0].name}</h1>: <h1>Lo sentimos {user.email}, no existe producto con el id: {id}</h1>}
+            {result.length ? <h1>{result[0].name}</h1>: <h1>Lo sentimos {user.firstName}, no existe producto con el id: {id}</h1>}
         </div>
     )
 }

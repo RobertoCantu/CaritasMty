@@ -87,31 +87,6 @@ getConnection();
 
 
 
-//This would be for register if needed 
-// app.post("/register", (req,res) =>{
-
-// const username = req.body.name;
-// const password = req.body.password;
-// //res.send("hola");
-
-// //Querie format
-// db.query("INSERT INTO user (name,password) VALUES (?,?)",
-// [username,password],
-// (err,result) =>{
-//     if(err){
-//         console.log(err);
-//     } else {
-//         console.log(result);
-//     }
-//     //res.send(console.log("Listo"));
-    
-// }
-
-// )
-
-
-// });
-
 //Login 
 //  app.get("/login",  (req,res) => {
 //     const xd = req.body.name;
@@ -175,33 +150,14 @@ app.post('/login',async function(req, res) {
         .query('SELECT * FROM users where Email = @Email');
         if(result.recordset.length > 0){
             req.session.user = result.recordset;
-            console.log(req.session.user);
+            //console.log(req.session.user);
             res.send(result.recordset);
+        } else {
+            res.send({message:"User doesn't exist"});
         }
     } catch(e){
-        console.log(e);
+        //console.log(e);
     }
-    
-
-   
-    
-	
-		// db.query('SELECT * FROM pizza WHERE name = ?', [userEmail], function(err, rows, fields) {
-		// 	//if(err) throw err
-            
-		// 	if (err) {
-        //         console.log(err)
-		// 		res.send("hola")
-		// 	} 
-        //     if (rows.length > 0){
-        //         req.session.user = rows;
-        //         console.log(req.session.user);
-        //         res.send(rows);
-        //     } else {
-        //         res.send({message:"User doesn't exist"})
-        //     }
-		// })
-	
 }) 
 
 app.get('/logout', (req,res) => {

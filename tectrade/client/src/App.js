@@ -21,8 +21,10 @@ import TicketDetails from './components/TicketDetails/TicketDetails';
 function App() {
  
   const [user,setUser] = useState({
-    id: "1",
-    email: "test@test",
+    id: "",
+    email: "",
+    firstName: "",
+    lastName: "",
     loggedIn: null,
     tickets: [],
   });
@@ -34,11 +36,20 @@ function App() {
   useEffect(() => {
     Axios.get("http://localhost:3001/login").
     then(res => {
-      console.log(res.data);
+      
         if(res.data.loggedIn == true){
-            setUser({...user, loggedIn:true});
+          const userInfo = res.data.user;
+          console.log(userInfo);
+            setUser({...user,
+              id: userInfo[0].UserId,
+              email: userInfo[0].Email,
+              firstName: userInfo[0].FirstName,
+              lastName: userInfo[0].LastName,
+              loggedIn:true});
+              
         } else {
           setUser({...user, loggedIn:false});
+          
         }
     }).catch(err => {
       console.log(err);
@@ -105,7 +116,7 @@ function App() {
       isAuth = {user.loggedIn}
       >
         
-        <UserContext.Provider value={{}}>
+        <UserContext.Provider value={{user}}>
         <Home/>
         </UserContext.Provider>
         </PrivateRoute>
