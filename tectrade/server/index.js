@@ -133,6 +133,7 @@ app.get('/:usernameId/tickets', async (req,res) => {
         .input("UsernameId", usernameId)
         .query('SELECT * FROM users INNER JOIN tickets ON users.UserId = tickets.UserId WHERE users.UserId = @UsernameId AND tickets.UserId = @UsernameId');
         console.log(result);
+        res.send({message:"Ya jala xd"});
         // if(result.recordset.length > 0){
         //     req.session.user = result.recordset;
         //     //console.log(req.session.user);
