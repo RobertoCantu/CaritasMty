@@ -11,6 +11,9 @@ const session = require('express-session');
 //Process env Port process.env.Port 
 const port = process.env.PORT || 3001;
 
+//Admin users
+const admin = ["juan@caritas.com","lorena@caritas.com","gerardo@caritas.com","sara@caritas.com"];
+
 //Testing tickets
 const tickets = [
 {
@@ -54,30 +57,32 @@ app.use(session({
 
 //Database connection
 //Sql server Connection Working
-// const dbSettings = {
-//     user: "root",
-//     password: "1234",
-//     server: "ROBERTOFIT",
-//     database: "Caritas",
-//     options: { 
-//         trustServerCertificate: true,
-//         } 
-// }
-
-// async function getConnection(){
-//     const pool = await sql.connect(dbSettings);
-//     const result = await pool.request().query("SELECT 1");
-//     console.log(result);
-
-// }
-
-//getConnection();
-const db = mysql.createConnection({
+const dbSettings = {
     user: "root",
-    host: "localhost",
-    password: "password",
-    database: "test",
-});
+    password: "1234",
+    server: "ROBERTOFIT",
+    database: "Caritas",
+    options: { 
+        trustServerCertificate: true,
+        } 
+}
+
+async function getConnection(){
+    const pool = await sql.connect(dbSettings);
+    const result = await pool.request().query("SELECT * from users");
+    console.log(result);
+
+}
+
+getConnection();
+
+//This was for mySql Connection
+// const db = mysql.createConnection({
+//     user: "root",
+//     host: "localhost",
+//     password: "password",
+//     database: "test",
+// });
 
 
 
@@ -159,26 +164,43 @@ app.get('/login', (req,res) =>{
 
 })
 
-app.post('/login',function(req, res) {
+app.post('/login',async function(req, res) {
 
     const userEmail = req.body.userEmail;
+    try{
+        const pool =  await sql.connect(dbSettings);
+        const result= await pool
+        .request()
+        .input("Email",userEmail)
+        .query('SELECT * FROM users where Email = @Email');
+        if(result.recordset.length > 0){
+            req.session.user = result.recordset;
+            console.log(req.session.user);
+            res.send(result.recordset);
+        }
+    } catch(e){
+        console.log(e);
+    }
+    
+
+   
     
 	
-		db.query('SELECT * FROM pizza WHERE name = ?', [userEmail], function(err, rows, fields) {
-			//if(err) throw err
+		// db.query('SELECT * FROM pizza WHERE name = ?', [userEmail], function(err, rows, fields) {
+		// 	//if(err) throw err
             
-			if (err) {
-                console.log(err)
-				res.send("hola")
-			} 
-            if (rows.length > 0){
-                req.session.user = rows;
-                console.log(req.session.user);
-                res.send(rows);
-            } else {
-                res.send({message:"User doesn't exist"})
-            }
-		})
+		// 	if (err) {
+        //         console.log(err)
+		// 		res.send("hola")
+		// 	} 
+        //     if (rows.length > 0){
+        //         req.session.user = rows;
+        //         console.log(req.session.user);
+        //         res.send(rows);
+        //     } else {
+        //         res.send({message:"User doesn't exist"})
+        //     }
+		// })
 	
 }) 
 
