@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 
 
 function EmployeeTickets() {
-    const {tickets} = useContext(UserContext);
+  //Context api
+  const {user} = useContext(UserContext);
 
    
  
@@ -13,7 +14,7 @@ function EmployeeTickets() {
         <div >
             <h1>My tickets</h1>
             <div className="container row">
-            {tickets.map(ticket => (
+            {user.tickets.map(ticket => (
                 <div key={ticket.id} className="card m-3"  style={{width: '18rem'}}>
                 <img className="card-img-top" src="..." alt="Card image cap"/>
                 <div className="card-body">

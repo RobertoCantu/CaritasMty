@@ -1,8 +1,4 @@
 import React, { useContext } from 'react';
-import Navbar from 'react-bootstrap/Navbar';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-//import logo from '../../img/logo.png';
 import './Navbar.css';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../Helper/Context';
@@ -10,17 +6,18 @@ import Axios from 'axios';
 
 
 const NavBar = ({isAuth}) => {
-  const {setLoggedIn} = useContext(UserContext);
+  //UseContext api
+  const {user,setUser} = useContext(UserContext);
   Axios.defaults.withCredentials = true;
 
+  //This function changes the object User and set loggedIn attribute to false
+  //and also elimantes the user cookie from local storage
   const logOut = (e) => {
     sessionStorage.removeItem('UserId'); 
     Axios.get('http://localhost:3001/logout').
     then((res) =>{
-      
-      //console.log(res);
-      setLoggedIn(false);
-    })
+      setUser({...user,loggedIn:false});
+    }).catch(err => console.log(err));
     
   }
  
@@ -88,9 +85,6 @@ const NavBar = ({isAuth}) => {
       
       }
       </div>
-
-        
-
     );
 }
 

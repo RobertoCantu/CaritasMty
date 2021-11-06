@@ -1,29 +1,26 @@
-import React, {useState,useEffect,useContext} from 'react'
+import React, {useState,useContext} from 'react'
 import {useHistory} from 'react-router-dom';
 import './Login.css'
 import  Axios  from 'axios';
 import {UserContext} from '../../Helper/Context';
 
 
-function Login({func}) {
-   
+function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [userNotExist, setUserNotExist] = useState(false);
-    const {setLoggedIn} = useContext(UserContext);
+    const {user,setUser} = useContext(UserContext);
     let history = useHistory();
     Axios.defaults.withCredentials = true;
+    //This function contains the form logic it create the user object with the
+    //information obtained from the server
     const submit = (e) => {
-        e.preventDefault();
-     
-        //console.log("Si entra");
-        
+        e.preventDefault();        
         Axios.post('http://localhost:3001/login',{
-            name: email,
+            userEmail: email,
             password: password,
         }).
         then((res,err) => {
-            //console.log("Esto ya nunca entra");
             if(err){
                 console.log(err);
             }
@@ -31,9 +28,7 @@ function Login({func}) {
                 console.log("Username doesnt exist");
                 setUserNotExist(true);
             } else {
-                console.log("Entro");
-                //func(true);
-                setLoggedIn(true);
+                setUser({...user,loggedIn:true});
                 history.push("/");
             }
         })
@@ -48,9 +43,9 @@ function Login({func}) {
                      Username doesn't exist
                 </div>}
                 <label htmlFor="email" className="sr-only"></label>
-                <input type="name" className="form-control" onChange = {(e) => {setEmail(e.target.value)}} placeholder="Email" required autoFocus value={email} />
+                <input type="email" className="form-control" onChange = {(e) => {setEmail(e.target.value)}} placeholder="Email" required autoFocus value={email} />
                 <label htmlFor="password"></label>
-                <input type="name" placeholder="Password" onChange={e => setPassword(e.target.value)} className="form-control" value={password} />
+                <input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} className="form-control" value={password} />
                 <div className="mt-3">
                     <input  type="submit" onClick = {submit} className="btn btn-lg btn-primary col-12" value="Login"/>
                 </div>

@@ -12,7 +12,7 @@ function TicketDetails() {
     console.log(result);
 
     useEffect(()=>{
-        setResult(tickets.filter(ticket => ticket.id == id));
+        setResult(tickets.filter(ticket => ticket.id === id));
 
     },[tickets])
     

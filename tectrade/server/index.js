@@ -161,10 +161,10 @@ app.get('/login', (req,res) =>{
 
 app.post('/login',function(req, res) {
 
-    const userName = req.body.name;
+    const userEmail = req.body.userEmail;
     
 	
-		db.query('SELECT * FROM pizza WHERE name = ?', [userName], function(err, rows, fields) {
+		db.query('SELECT * FROM pizza WHERE name = ?', [userEmail], function(err, rows, fields) {
 			//if(err) throw err
             
 			if (err) {

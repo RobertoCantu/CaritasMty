@@ -1,17 +1,14 @@
 
 import './App.css';
-import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle'
 import NavBar from './components/Navbar/Navbar.js';
-import Users from './components/users/users';
 import {BrowserRouter as Router, Switch,Route} from 'react-router-dom';
 import PageNotFound from './components/PageNotFound/PageNotFound';
-import BlogDetails from './components/BlogDetails/BlogDetails';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import Axios from 'axios';
-import {useState, useEffect,Suspense} from 'react';
+import {useState, useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import PublicRoute from './Routes/PublicRoute';
 import PrivateRoute from './Routes/PrivateRoute';
@@ -29,6 +26,7 @@ function App() {
     id: "1",
     email: "test@test",
     loggedIn: null,
+    tickets: [],
   });
   let history = useHistory();
   Axios.defaults.withCredentials = true;
@@ -40,9 +38,9 @@ function App() {
     then(res => {
       console.log(res.data);
         if(res.data.loggedIn == true){
-            setLoggedIn(true);
+            setUser({...user, loggedIn:true});
         } else {
-          setLoggedIn(false);
+          setUser({...user, loggedIn:false});
         }
     }).catch(err => {
       console.log(err);
@@ -53,63 +51,38 @@ function App() {
 useEffect(() => {
   Axios.get(`http://localhost:3001/${user.email}/tickets`).
   then((res) => {
-      setTickets(res.data);
+    setUser({...user,tickets:res.data});
   }).catch(error => {
       console.log(error);
   })
 }, []);
 
-  
-
-  // useEffect(() => {
-  //   if(testo == false){
-  //     history.push('/login');
-  //   }
-
-  // }, []);
-
-  // if(testo == false){
-  //   history.push('/login');
-  // }
-
-  // const login = () => Axios.get('http://localhost:3001/login').
-  // then(res => {
-  //   console.log("hola");
-  // })
-  if(loggedIn == null){
+  if(user.loggedIn == null){
     return (
       <div>Loading Page...</div>
     )
   } else {
-
-
-  
-  
   return (
-
-   
     <div>
-      
- 
     <Router>
-    <UserContext.Provider value={{setLoggedIn}}>
-    <NavBar isAuth = {loggedIn}/> 
+    <UserContext.Provider value={{user,setUser}}>
+    <NavBar isAuth = {user.loggedIn}/> 
     </UserContext.Provider>
       <Switch>
       
       <PublicRoute
       exact path = "/login"
-      isAuth = {loggedIn}
+      isAuth = {user.loggedIn}
       >
-        <UserContext.Provider value={{setLoggedIn}}>
-        <Login func = {loggedIn => setLoggedIn(loggedIn)}/>
+        <UserContext.Provider value={{user,setUser}}>
+        <Login/>
         </UserContext.Provider>
       </PublicRoute>
 
       
       <PrivateRoute 
         exact path="/create" 
-        isAuth={loggedIn}
+        isAuth={user.loggedIn}
         >
         <UserContext.Provider value={{setLoggedIn}}>
           <TicketForm/>
@@ -118,20 +91,20 @@ useEffect(() => {
 
         <PrivateRoute 
         exact path="/tickets" 
-        isAuth={loggedIn}
+        isAuth={user.loggedIn}
         >
           
-        <UserContext.Provider value={{user,tickets}}>
+        {/* <UserContext.Provider value={{user}}>
           <EmployeeTickets/>
           </UserContext.Provider>
         </PrivateRoute>
 
         <PrivateRoute 
         exact path="/tickets/:id" 
-        isAuth={loggedIn}
-        >
+        isAuth={user.loggedIn}
+        > */}
           
-        <UserContext.Provider value={{user,tickets}}>
+        <UserContext.Provider value={{user}}>
           <TicketDetails/>
           </UserContext.Provider>
         </PrivateRoute>
@@ -139,84 +112,17 @@ useEffect(() => {
 
       <PrivateRoute
       exact path = "/"
-      isAuth = {loggedIn}
+      isAuth = {user.loggedIn}
       >
         
-        <UserContext.Provider value={{setLoggedIn}}>
+        <UserContext.Provider value={{}}>
         <Home/>
         </UserContext.Provider>
         </PrivateRoute>
-
-        
-      
-
       <Route path="*" exact component={PageNotFound} />
       </Switch>
     </Router>
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  //  <div>
-  //    {loggedIn ? 
-  //    <Router> 
-  //     <NavBar login = {loggedIn}  /> 
-  //       <Switch>
-  //         <Route path="/" exact>
-  //           <Home/>
-  //           <Users/>
-  //         </Route>
-          
-  //         <Route path="/Blogs" exact >
-           
-  //         </Route>
-  //         <Route path="/Blogs/:id" exact >
-  //           <BlogDetails/>
-  //         </Route>
-  //         <Route path="*" exact component={PageNotFound} />
-          
-  //       </Switch>
-        
-
-
-  //     </Router>: 
-  //   <Router>
-      
-  //     <NavBar login = {loggedIn}/>
-  //     <Switch>
-  //           <Route path="/login" exact>
-  //           <Login func = {loggedIn => setLoggedIn(loggedIn)}/>
-  //           </Route>
-          
-  //         <Route path="*" exact component={PageNotFound} />
-  //         </Switch>
-      
-  //     </Router>
-      
-  //     }
-    
-      
-  //     </div>
-      
-      
-
-
-
-    
+    </div>    
   );
 }
 }
