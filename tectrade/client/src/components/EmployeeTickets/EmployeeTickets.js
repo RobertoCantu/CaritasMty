@@ -1,12 +1,22 @@
-import React, {useState,useEffect, useContext} from 'react'
-import axios from 'axios'
+import React, {useEffect, useContext} from 'react'
+import Axios from 'axios'
 import { UserContext } from '../../Helper/Context';
 import { Link } from 'react-router-dom';
 
 
 function EmployeeTickets() {
   //Context api
-  const {user} = useContext(UserContext);
+  const {user,setUser} = useContext(UserContext);
+
+  //Obtain tickets information
+  useEffect(() => {
+  Axios.get(`http://localhost:3001/${user.email}/tickets`).
+  then((res) => {
+    setUser({...user,tickets:res.data});
+  }).catch(error => {
+      console.log(error);
+  })
+  }, []);
 
    
  
