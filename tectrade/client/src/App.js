@@ -28,6 +28,7 @@ function App() {
   const [user,setUser] = useState({
     id: "1",
     email: "test@test",
+    loggedIn: null,
   });
   let history = useHistory();
   Axios.defaults.withCredentials = true;
