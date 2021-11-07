@@ -43,7 +43,7 @@ function EmployeeTickets() {
             <h2>If you have a problem please create a Ticket on this button</h2>
             <Link to={'/create'}><button type="button" className="btn btn-success">Ticket</button></Link>
             </div>
-}
+            }
             </div>
             
         </div>

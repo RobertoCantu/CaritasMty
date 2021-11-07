@@ -41,11 +41,12 @@ function App() {
           const userInfo = res.data.user;
           
             setUser({
+              ...user,
               id: userInfo[0].UserId,
               email: userInfo[0].Email,
               firstName: userInfo[0].FirstName,
               lastName: userInfo[0].LastName,
-              tickets: [],
+              
               loggedIn:true});
               
         } else {

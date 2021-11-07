@@ -8,17 +8,22 @@ function TicketDetails() {
     const {id} = useParams();
     const [result,setResult] = useState([]);
     
+    
     //This hook obtains a ticked based on url id 
     useEffect(()=>{
-        setResult(user.tickets.filter(ticket => ticket.id === id));
+        setResult(user.tickets.filter(ticket => ticket.TicketId == id));
+        console.log(user.tickets.filter(ticket => ticket.TicketId === 4))
 
     },[user])
+
+    console.log(user);
+    console.log(result);
     
   
    
     return (
         <div>
-            {result.length ? <h1>{result[0].name}</h1>: <h1>Lo sentimos {user.firstName}, no existe producto con el id: {id}</h1>}
+            {result.length ? <h1>{result[0].Title}</h1>: <h1>Lo sentimos {user.firstName}, no existe Ticket con el id: {id}</h1>}
         </div>
     )
 }
