@@ -28,7 +28,13 @@ function Login() {
                 console.log("Username doesnt exist");
                 setUserNotExist(true);
             } else {
-                setUser({...user,loggedIn:true});
+                setUser({
+                    id: res.data[0].UserId,
+                    email: res.data[0].Email,
+                    firstName: res.data[0].FirstName,
+                    lastName: res.data[0].LastName,
+                    tickets: [],
+                    loggedIn:true});
                 history.push("/");
             }
         })

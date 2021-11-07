@@ -16,7 +16,7 @@ const NavBar = ({isAuth}) => {
     sessionStorage.removeItem('UserId'); 
     Axios.get('http://localhost:3001/logout').
     then((res) =>{
-      setUser({...user,loggedIn:false});
+      setUser({loggedIn:false});
     }).catch(err => console.log(err));
     
   }

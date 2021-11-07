@@ -65,14 +65,14 @@ const dbSettings = {
         } 
 }
 
-async function getConnection(){
-    const pool = await sql.connect(dbSettings);
-    const result = await pool.request().query("SELECT * from users");
-    console.log(result);
+// async function getConnection(){
+//     const pool = await sql.connect(dbSettings);
+//     const result = await pool.request().query("SELECT * from users");
+//     console.log(result);
 
-}
+// }
 
-getConnection();
+// getConnection();
 
 //This was for mySql Connection
 // const db = mysql.createConnection({
@@ -131,16 +131,13 @@ app.get('/:usernameId/tickets', async (req,res) => {
         const result= await pool
         .request()
         .input("UsernameId", usernameId)
-        .query('SELECT * FROM users INNER JOIN tickets ON users.UserId = tickets.UserId WHERE users.UserId = @UsernameId AND tickets.UserId = @UsernameId');
+        .query('SELECT tickets.TicketId,tickets.Title,tickets.Description,tickets.Date,tickets.Status FROM users INNER JOIN tickets ON users.UserId = tickets.UserId WHERE users.UserId = @UsernameId AND tickets.UserId = @UsernameId');
         console.log(result);
-        res.send({message:"Ya jala xd"});
-        // if(result.recordset.length > 0){
-        //     req.session.user = result.recordset;
-        //     //console.log(req.session.user);
-        //     res.send(result.recordset);
-        // } else {
-        //     res.send({message:"User doesn't exist"});
-        // }
+        if(result.recordset.length > 0){
+            res.send(result.recordset);
+        } else {
+            res.send(result.recordset);
+        }
     } catch(e){
         console.log(e);
     }

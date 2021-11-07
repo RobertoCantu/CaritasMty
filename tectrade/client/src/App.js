@@ -39,7 +39,7 @@ function App() {
       
         if(res.data.loggedIn == true){
           const userInfo = res.data.user;
-          console.log(userInfo);
+          
             setUser({
               id: userInfo[0].UserId,
               email: userInfo[0].Email,
@@ -49,7 +49,7 @@ function App() {
               loggedIn:true});
               
         } else {
-          setUser({...user, loggedIn:false});
+          setUser({loggedIn:false});
           
         }
     }).catch(err => {
