@@ -24,10 +24,11 @@ import { sql } from "../database";
 
 //Route for creating Ticket
 export const createTicket = async(req,res) => {
-    //console.log(req.body);
+    console.log(req.body);
     const {ticketTitle,ticketDepartment,ticketDescription,ticketDate,ticketUserId} = req.body;
-    if(ticketTitle == null || ticketDepartment == null || ticketDescription == null || ticketDate == null){
-        res.send({message:"Por favor llena todo los campos"});
+    if(ticketTitle == '' || ticketDepartment == '' || ticketDescription == '' || ticketDate == ''){
+        res.send({messageError:"Por favor llena todo los campos"});
+        
     } else {
         try{
                 const pool =  await getConnection();
@@ -41,10 +42,12 @@ export const createTicket = async(req,res) => {
                 .input("TicketUserId",sql.Int,ticketUserId)
                 .query(queries.createTicket);
                 
-                console.log(result);
+                if(result){
+                    res.send({messageSuccess:"Ticket creado"});
+                }
             } catch(e){
                 res.status(500);
-                res.send(error.message);
+                res.send(e.message);
             }
     }
     

@@ -1,16 +1,24 @@
-import React, {useState,useContext} from 'react'
+import React, {useState,useContext,useEffect} from 'react'
 import Axios from 'axios';
 import {UserContext} from '../../Helper/Context';
 
 function TicketForm() {
     const {user} = useContext(UserContext);
     Axios.defaults.withCredentials = true;
+    const [success,setSuccess] = useState(false);
+    const [error,setError] = useState(false);
     const [ticket, setTicket] = useState({
         title: "",
         department: "",
         description: "",
         date: "",
     });
+
+    //Logic to eliminate alert
+    useEffect(()=>{
+        setSuccess(false);
+        setError(false);
+    },[ticket])
 
 
     //Method for handling the form
@@ -27,19 +35,13 @@ function TicketForm() {
             if(err){
                 console.log(err);
             }
-            // if(res.data.message){
-            //     console.log("Username doesnt exist");
-            //     setUserNotExist(true);
-            // } else {
-            //     setUser({
-            //         id: res.data[0].UserId,
-            //         email: res.data[0].Email,
-            //         firstName: res.data[0].FirstName,
-            //         lastName: res.data[0].LastName,
-            //         tickets: [],
-            //         loggedIn:true});
-            //     history.push("/");
-            // }
+            if(res.data.messageError){
+                setError(true);
+            }
+            else if(res.data.messageSuccess){
+                setSuccess(true);
+
+            }
         })
 
         //Reset object and form
@@ -53,6 +55,13 @@ function TicketForm() {
     }
     return (
         <div className="">
+            {success && 
+            <div class="alert alert-success" role="alert">
+                Ticket Creado exitosamente
+            </div>}
+            {error && <div class="alert alert-danger" role="alert">
+                        Por favor, llena todos los campos
+                    </div>}
             <form>
                 <div  className="mb-3 form-outline ">
                     <label  className="form-label">Nombre del incidente: </label>
