@@ -15,6 +15,8 @@ function Login() {
     //This function contains the form logic it create the user object with the
     //information obtained from the server
     const submit = (e) => {
+
+        //Front end Validation
         e.preventDefault();        
         Axios.post('http://localhost:3001/login',{
             userEmail: email,

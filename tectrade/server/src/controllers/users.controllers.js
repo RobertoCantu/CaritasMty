@@ -1,8 +1,12 @@
 import { getConnection,queries } from "../database";
 
+//Admin users
+const admin = ["gerardo@caritas.com","sara@caritas.com"];
+
 export const getLogin = (req,res) =>{
     //Verify if a session already exists
     if(req.session.user){
+        console.log(req.session);
         res.send({loggedIn:true, user: req.session.user})
     } else{
         res.send({loggedIn:false});
@@ -26,6 +30,7 @@ export const postLogin =async function(req, res) {
 
         if(result.recordset.length > 0){
             req.session.user = result.recordset;
+            req.session.isAdmin = false;
             //console.log(req.session.user);
             res.send(result.recordset);
         } else {

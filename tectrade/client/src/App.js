@@ -36,6 +36,7 @@ function App() {
   useEffect(() => {
     Axios.get("http://localhost:3001/login").
     then(res => {
+      console.log(res.data);
       
         if(res.data.loggedIn == true){
           const userInfo = res.data.user;
