@@ -2,6 +2,7 @@ import React, {useState,useContext} from 'react'
 import {useHistory} from 'react-router-dom';
 import './Login.css'
 import  Axios  from 'axios';
+import { userSchema } from '../../Validations/UserValidation';
 import {UserContext} from '../../Helper/Context';
 
 
@@ -14,11 +15,16 @@ function Login() {
     Axios.defaults.withCredentials = true;
     //This function contains the form logic it create the user object with the
     //information obtained from the server
-    const submit = (e) => {
-
+    const submit = async (e) => {
+        e.preventDefault(); 
         //Front end Validation
-        e.preventDefault();        
-        Axios.post('http://localhost:3001/login',{
+        let formData = {
+            email: email,
+            password: password,
+        }
+        const isValid = await userSchema.isValid(formData);
+        if (isValid){
+            Axios.post('http://localhost:3001/login',{
             userEmail: email,
             userPassword: password,
         }).
@@ -40,6 +46,11 @@ function Login() {
                 history.push("/");
             }
         })
+        } else {
+            console.log("Bad Info")
+        }
+              
+        
     }
     
     
