@@ -87,7 +87,7 @@ function App() {
         exact path="/create" 
         isAuth={user.loggedIn}
         >
-        <UserContext.Provider value={{}}>
+        <UserContext.Provider value={{user}}>
           <TicketForm/>
           </UserContext.Provider>
         </PrivateRoute>

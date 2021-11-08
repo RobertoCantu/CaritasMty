@@ -1,9 +1,12 @@
-import React, {useState} from 'react'
+import React, {useState,useContext} from 'react'
+import Axios from 'axios';
+import {UserContext} from '../../Helper/Context';
 
 function TicketForm() {
-
+    const {user} = useContext(UserContext);
+    Axios.defaults.withCredentials = true;
     const [ticket, setTicket] = useState({
-        name: "",
+        title: "",
         department: "",
         description: "",
         date: "",
@@ -13,11 +16,35 @@ function TicketForm() {
     //Method for handling the form
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(ticket);
+        Axios.post('http://localhost:3001/createTicket',{
+            ticketTitle: ticket.title,
+            ticketDepartment: ticket.department,
+            ticketDescription: ticket.description,
+            ticketDate: ticket.date,
+            ticketUserId: user.id
+        }).
+        then((res,err) => {
+            if(err){
+                console.log(err);
+            }
+            // if(res.data.message){
+            //     console.log("Username doesnt exist");
+            //     setUserNotExist(true);
+            // } else {
+            //     setUser({
+            //         id: res.data[0].UserId,
+            //         email: res.data[0].Email,
+            //         firstName: res.data[0].FirstName,
+            //         lastName: res.data[0].LastName,
+            //         tickets: [],
+            //         loggedIn:true});
+            //     history.push("/");
+            // }
+        })
 
         //Reset object and form
         setTicket({
-            name: "",
+            title: "",
             department: "",
             description: "",
             date: "",
@@ -29,16 +56,17 @@ function TicketForm() {
             <form>
                 <div  className="mb-3 form-outline ">
                     <label  className="form-label">Nombre del incidente: </label>
-                    <input type="text" onChange={e => setTicket({...ticket,name:e.target.value})} value={ticket.name} className="form-control" />
+                    <input type="text" onChange={e => setTicket({...ticket,title:e.target.value})} value={ticket.title} className="form-control" />
                 </div>
                 <div className="mb-3">
-                <label  className="form-label">Departamento </label>
-                <select onChange={e=> setTicket({...ticket,department: e.target.value})} value={ticket.department} className="form-select" >
-                    <option value="Administracion">Administracion</option>
-                    <option value="Finanzas">Finanzas</option>
-                    <option value="Recursos Humanos">Recursos Humanos</option>
-                    <option value="Sistemas">Sistemas</option>
-                </select>
+                    <label  className="form-label">Departamento </label>
+                    <select onChange={e=> setTicket({...ticket,department: e.target.value})} value={ticket.department} className="form-select"  >
+                        <option hidden >Selecciona un Departamento</option>
+                        <option value="Administracion">Administracion</option>
+                        <option value="Finanzas">Finanzas</option>
+                        <option value="Recursos Humanos">Recursos Humanos</option>
+                        <option value="Sistemas">Sistemas</option>
+                    </select>
                 </div>
                 <div className="mb-3">
                     <label className="form-label">Descripcion: </label>
