@@ -9,30 +9,16 @@ function TicketForm() {
     const {user} = useContext(UserContext);
     Axios.defaults.withCredentials = true;
     const [success,setSuccess] = useState(false);
-    const [error,setError] = useState(false);
-    // const [ticket, setTicket] = useState({
-    //     title: "",
-    //     department: "",
-    //     description: "",
-    //     date: "",
-    // });
-
+   
     //Front end Validation
     const {register,handleSubmit,formState:{errors},reset} = useForm({
         resolver: yupResolver(ticketSchema),
     });
 
-    //Logic to eliminate alert
-    // useEffect(()=>{
-    //     setSuccess(false);
-    //     setError(false);
-    // },[ticket])
-    console.log(errors);
 
 
     //Method for handling the form
     const submitForm = (data) => {
-        //e.preventDefault();
         Axios.post('http://localhost:3001/createTicket',{
             ticketTitle: data.title,
             ticketDepartment: data.department,
@@ -43,26 +29,14 @@ function TicketForm() {
         then((res,err) => {
             if(err){
                 console.log(err);
-            }
-            if(res.data.messageError){
-                setError(true);
-            }
+            } 
             else if(res.data.messageSuccess){
                 setSuccess(true);
-
             }
         })
 
         //Reset form
         reset({})
-        //Reset object and form
-        // setTicket({
-        //     title: "",
-        //     department: "",
-        //     description: "",
-        //     date: "",
-        // });
-        
     }
     return (
         <div className="">
@@ -70,9 +44,6 @@ function TicketForm() {
             <div class="alert alert-success" role="alert">
                 Ticket Creado exitosamente
             </div>}
-            {error && <div class="alert alert-danger" role="alert">
-                        Por favor, llena todos los campos
-                    </div>}
             <form onSubmit={handleSubmit(submitForm)}>
                 <div  className="mb-3 form-outline ">
                     <label  className="form-label">Nombre del incidente: </label>
