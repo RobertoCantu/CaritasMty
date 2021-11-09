@@ -33,7 +33,7 @@ function EmployeeTickets() {
                   <Link to={`tickets/${ticket.TicketId}`}><h5 className="card-title">{ticket.Title}</h5></Link>
                   <p className="card-text">{ticket.Description}</p>
                   <a href="#" className="btn btn-info">Edit</a>
-                  <a href="#" className="btn btn-danger">Delete</a>
+                  <a href="#"  className="btn btn-danger">Delete</a>
                 </div>
               </div>
             )) 

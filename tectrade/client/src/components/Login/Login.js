@@ -20,6 +20,7 @@ function Login() {
     const {register,handleSubmit,formState:{errors}} = useForm({
         resolver: yupResolver(userSchema),
     });
+    
 
     const submitForm =  (data) => {
             Axios.post('http://localhost:3001/login',{
@@ -45,6 +46,7 @@ function Login() {
             }
         })  
     }
+    console.log(errors);
     
     
     return (
@@ -55,10 +57,11 @@ function Login() {
                      Invalid Username/Password
                 </div>}
                 <label htmlFor="email" className="sr-only"></label>
-                <input type="email" className="form-control" {...register('email')}  placeholder="Email" required autoFocus  />
-                <p>{errors.email?.message} </p>
+                <input type="email" className="form-control" {...register('email')} placeholder="Email" autoFocus  />
+                <p> {errors?.email?.message} </p>
                 <label htmlFor="password"></label>
                 <input type="password" placeholder="Password" {...register('password')}  className="form-control" />
+                <p>{errors?.password?.message} </p>
                 <div className="mt-3">
                     <input  type="submit" className="btn btn-lg btn-primary col-12" value="Login"/>
                 </div>

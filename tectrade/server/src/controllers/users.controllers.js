@@ -29,8 +29,10 @@ export const postLogin =async function(req, res) {
         .query(queries.getUser);
 
         if(result.recordset.length > 0){
+            
             req.session.user = result.recordset;
             req.session.isAdmin = false;
+            
             //console.log(req.session.user);
             res.send(result.recordset);
         } else {
