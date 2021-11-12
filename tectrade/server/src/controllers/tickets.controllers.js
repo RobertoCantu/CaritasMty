@@ -62,7 +62,8 @@ export const deleteTicket = async (req, res) => {
       .request()
       .input("TicketId", ticketId)
       .query(queries.deleteTicket);
-    if (result.affectedRows == "1") {
+      console.log(result);
+    if (result.rowsAffected.length > 0) {
       res.send({ messageSuccess: "Ticket borrado" });
     } else {
       res.send({ messageSuccess: "Ticket no borrado" });
