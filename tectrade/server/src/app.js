@@ -10,17 +10,17 @@ const app = express();
 app.use(express.json());
 app.use(cors({
     origin: ["http://localhost:3000"],
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", 'DELETE', "PUT"],
     credentials: true,
 }));
 //app.use(cors());
- app.use(cookieParser());
- app.use(express.urlencoded({extended:true}));
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
     key: "userId",
     secret: "secret",
-    resave : false,
+    resave: false,
     saveUninitialized: false,
     cookie: {
         expires: 60 * 60 * 24 * 1000,
