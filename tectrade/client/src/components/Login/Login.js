@@ -28,7 +28,7 @@ function Login() {
             userPassword: data.password,
         }).
         then((res,err) => {
-            console.log(res);
+           // console.log(res.data);
             if(err){
                 console.log(err);
             }
@@ -36,12 +36,14 @@ function Login() {
                 console.log("Username doesnt exist");
                 setUserNotExist(true);
             } else {
+                const user = res.data.user[0];
+                const tickets = res.data.tickets;
                 setUser({
-                    id: res.data[0].UserId,
-                    email: res.data[0].Email,
-                    firstName: res.data[0].FirstName,
-                    lastName: res.data[0].LastName,
-                    tickets: [],
+                    id: user.UserId,
+                    email: user.Email,
+                    firstName: user.FirstName,
+                    lastName: user.LastName,
+                    tickets: tickets,
                     loggedIn:true});
                 history.push("/");
             }

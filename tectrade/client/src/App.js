@@ -42,6 +42,7 @@ function App() {
         if(res.data.loggedIn == true){
           const userInfo = res.data.user;
           const tickets = res.data.tickets;
+          
         
             setUser({
               ...user,
@@ -61,7 +62,6 @@ function App() {
     })
 }, []);
 
-// if (user.id){
  
 //     Axios.get(`http://localhost:3001/${user.id}/tickets`).
 //       then((res) => {
@@ -70,7 +70,7 @@ function App() {
 //         console.log(error);
 //       })
  
-// }
+
 
 
 

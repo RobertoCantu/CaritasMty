@@ -39,6 +39,7 @@ export const getLogin = async (req,res) =>{
 
 export const postLogin =async function(req, res) {
     
+    
     const userEmail = await req.body.userEmail;
     const userPassword = await req.body.userPassword;
     //console.log(userPassword);
@@ -49,20 +50,34 @@ export const postLogin =async function(req, res) {
         .input("Email",userEmail)
         .input("Password",userPassword)
         .query(queries.getUser);
+        
+        
+        // const tickets = await pool
+        // .request()
+        // .input("UsernameId", usernameId)
+        // .query(queries.getAllUserTickets);
 
         if(result.recordset.length > 0){
+            const usernameId = result.recordset[0].UserId;
             const userEmail = result.recordset[0].Email;
+            //Obtain Tickets
+            const tickets = await pool
+            .request()
+            .input("UsernameId", usernameId)
+            .query(queries.getAllUserTickets);
+            console.log(tickets.recordset)
+            //console.log(tickets);
             //console.log(userEmail);
             //console.log(result.recordset)
             //Check if user is admin
             if(admin.includes(userEmail)){
                 req.session.user = result.recordset;
                 req.session.isAdmin = true;
-                res.send(result.recordset);
+                res.send({loggedIn:true, user: req.session.user, tickets: tickets.recordset, isAdmin: req.session.isAdmin});
             } else {
                 req.session.user = result.recordset;
                 req.session.isAdmin = false;
-                res.send(result.recordset);
+                res.send({loggedIn:true, user: req.session.user, tickets: tickets.recordset, isAdmin: req.session.isAdmin});
             }
             
         } else {
