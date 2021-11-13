@@ -130,7 +130,15 @@ function App() {
         <HomeWrapper/>
         </UserContext.Provider>
         </PrivateRoute>
-      <Route path="*" exact component={PageNotFound} />
+
+        <PrivateRoute
+        exact path = "*"
+        isAuth = {user.loggedIn}
+        >
+          <PageNotFound/>
+        
+        </PrivateRoute>
+      
       </Switch>
     </Router>
     </div>    
