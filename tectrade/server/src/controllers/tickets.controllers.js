@@ -20,11 +20,13 @@ export const getAllUserTickets = async (req, res) => {
     res.status(500);
     res.send(e.message);
   }
+
+
 };
 
 //Route for creating Ticket
 export const createTicket = async (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
   const { ticketTitle, ticketDepartment, ticketDescription, ticketDate, ticketUserId } = req.body;
   if (ticketTitle == '' || ticketDepartment == '' || ticketDescription == '' || ticketDate == '') {
     res.send({ messageError: "Por favor llena todo los campos" });

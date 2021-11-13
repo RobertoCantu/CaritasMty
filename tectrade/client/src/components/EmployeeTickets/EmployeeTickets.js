@@ -9,14 +9,14 @@ function EmployeeTickets() {
   const { user, setUser } = useContext(UserContext);
 
   //Obtain tickets information
-  useEffect(() => {
-    Axios.get(`http://localhost:3001/${user.id}/tickets`).
-      then((res) => {
-        setUser({ ...user, tickets: res.data });
-      }).catch(error => {
-        console.log(error);
-      })
-  }, []);
+  // useEffect(() => {
+  //   Axios.get(`http://localhost:3001/${user.id}/tickets`).
+  //     then((res) => {
+  //       setUser({ ...user, tickets: res.data });
+  //     }).catch(error => {
+  //       console.log(error);
+  //     })
+  // }, []);
 
   console.log(user);
 

@@ -16,6 +16,7 @@ import {UserContext} from './Helper/Context';
 import TicketForm from './components/TicketForm/TicketForm';
 import EmployeeTickets from './components/EmployeeTickets/EmployeeTickets';
 import TicketDetails from './components/TicketDetails/TicketDetails';
+import EmployeeHome from './components/EmployeeHome/EmployeeHome';
 
 
 function App() {
@@ -40,14 +41,15 @@ function App() {
       
         if(res.data.loggedIn == true){
           const userInfo = res.data.user;
-          
+          const tickets = res.data.tickets;
+        
             setUser({
               ...user,
               id: userInfo[0].UserId,
               email: userInfo[0].Email,
               firstName: userInfo[0].FirstName,
               lastName: userInfo[0].LastName,
-              
+              tickets: tickets,
               loggedIn:true});
               
         } else {
@@ -58,6 +60,17 @@ function App() {
       console.log(err);
     })
 }, []);
+
+// if (user.id){
+ 
+//     Axios.get(`http://localhost:3001/${user.id}/tickets`).
+//       then((res) => {
+//         setUser({ ...user, tickets: res.data });
+//       }).catch(error => {
+//         console.log(error);
+//       })
+ 
+// }
 
 
 
@@ -123,7 +136,7 @@ function App() {
       >
         
         <UserContext.Provider value={{user}}>
-        <Home/>
+        <EmployeeHome></EmployeeHome>
         </UserContext.Provider>
         </PrivateRoute>
       <Route path="*" exact component={PageNotFound} />

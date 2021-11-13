@@ -3,11 +3,32 @@ import { getConnection,queries } from "../database";
 //Admin users
 const admin = ["gerardo@caritas.com","sara@caritas.com"];
 
-export const getLogin = (req,res) =>{
+export const getLogin = async (req,res) =>{
+    //const userId = await req.body
     //Verify if a session already exists
+    console.log(req.session);
     if(req.session.user){
-        console.log(req.session);
-        res.send({loggedIn:true, user: req.session.user})
+        const usernameId = req.session.user[0].UserId;
+        console.log(usernameId);
+        try {
+            const pool = await getConnection();
+            const result = await pool
+              .request()
+              .input("UsernameId", usernameId)
+              .query(queries.getAllUserTickets);
+              console.log(result);
+            if (result.recordset.length > 0) {
+                res.send({loggedIn:true, user: req.session.user, tickets: result.recordset});
+            } else {
+                res.send({loggedIn:true, user: req.session.user, tickets: []})
+            }
+          } catch (e) {
+            res.status(500);
+            res.send(e.message);
+          }
+
+        //console.log(req.session);
+        
     } else{
         res.send({loggedIn:false});
     }
@@ -19,7 +40,7 @@ export const postLogin =async function(req, res) {
     
     const userEmail = await req.body.userEmail;
     const userPassword = await req.body.userPassword;
-    console.log(userPassword);
+    //console.log(userPassword);
     try{
         const pool =  await getConnection();
         const result= await pool
