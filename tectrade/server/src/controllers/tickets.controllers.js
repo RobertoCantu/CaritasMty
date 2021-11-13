@@ -18,7 +18,7 @@ export const getAllUserTickets = async (req, res) => {
     }
   } catch (e) {
     res.status(500);
-    res.send(error.message);
+    res.send(e.message);
   }
 };
 
