@@ -3,6 +3,7 @@ import { UserContext } from '../../Helper/Context'
 
 function AdminHome() {
     const {user} = useContext(UserContext);
+    const PendingTickets = user.tickets;
     return (
         <div>
             <h1>Current Tickets to resolve</h1>

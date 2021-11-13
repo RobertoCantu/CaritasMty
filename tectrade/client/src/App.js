@@ -5,18 +5,18 @@ import 'bootstrap/dist/js/bootstrap.bundle'
 import NavBar from './components/Navbar/Navbar.js';
 import {BrowserRouter as Router, Switch,Route} from 'react-router-dom';
 import PageNotFound from './components/PageNotFound/PageNotFound';
-import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import Axios from 'axios';
 import {useState, useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import PublicRoute from './Routes/PublicRoute';
 import PrivateRoute from './Routes/PrivateRoute';
+import AdminRoute from './Routes/AdminRoute';
+import EmpRoute from './Routes/EmpRoute';
 import {UserContext} from './Helper/Context';
 import TicketForm from './components/TicketForm/TicketForm';
 import EmployeeTickets from './components/EmployeeTickets/EmployeeTickets';
 import TicketDetails from './components/TicketDetails/TicketDetails';
-import EmployeeHome from './components/EmployeeHome/EmployeeHome';
 import HomeWrapper from './components/HomeWrapper/HomeWrapper';
 
 
@@ -31,7 +31,7 @@ function App() {
     isAdmin: null,
     tickets: [],
   });
-  let history = useHistory();
+  //let history = useHistory();
   Axios.defaults.withCredentials = true;
 
   
@@ -39,20 +39,21 @@ function App() {
   useEffect(() => {
     Axios.get("http://localhost:3001/login").
     then(res => {
-      console.log(res.data);
+      //console.log(res.data);
       
         if(res.data.loggedIn == true){
           const userInfo = res.data.user;
           const tickets = res.data.tickets;
+          const isAdmin = res.data.isAdmin;
           
         
-            setUser({
-              ...user,
+            setUser({         
               id: userInfo[0].UserId,
               email: userInfo[0].Email,
               firstName: userInfo[0].FirstName,
               lastName: userInfo[0].LastName,
               tickets: tickets,
+              isAdmin:isAdmin,
               loggedIn:true});
               
         } else {
@@ -60,7 +61,7 @@ function App() {
           
         }
     }).catch(err => {
-      console.log(err);
+      //console.log(err);
     })
 }, []);
 
@@ -88,24 +89,26 @@ function App() {
       </PublicRoute>
 
       
-      <PrivateRoute 
+      <EmpRoute 
         exact path="/create" 
         isAuth={user.loggedIn}
+        isAdmin={user.isAdmin}
         >
         <UserContext.Provider value={{user}}>
           <TicketForm/>
           </UserContext.Provider>
-        </PrivateRoute>
+        </EmpRoute>
 
-        <PrivateRoute 
+        <EmpRoute 
         exact path="/tickets" 
         isAuth={user.loggedIn}
+        isAdmin={user.isAdmin}
         >
           
         <UserContext.Provider value={{user,setUser}}>
           <EmployeeTickets/>
           </UserContext.Provider>
-        </PrivateRoute>
+        </EmpRoute>
 
         <PrivateRoute 
         exact path="/tickets/:id" 
