@@ -27,5 +27,28 @@ app.use(session({
     },
 }))
 
+export const auth = function (req,res,next){
+    if(req.session.loggedIn == true){
+        next();
+        return;
+    }
+    res.send({message:"You are not authorized"})
+}
+
+
+export const formValidation= (schema) => async(req,res,next) =>{
+    const body = req.body;
+    console.log(body);
+
+    try {
+        await schema.validate(body);
+        next();
+        return;
+
+    } catch(error){
+        res.status(400).json({error});
+    }
+}
+   
 
 export default app;

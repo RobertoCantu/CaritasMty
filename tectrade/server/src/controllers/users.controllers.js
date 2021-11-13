@@ -78,7 +78,8 @@ export const postLogin =async function(req, res) {
                 console.log(allTickets.recordset)
                 req.session.user = result.recordset;
                 req.session.isAdmin = true;
-                res.send({loggedIn:true, user: req.session.user, tickets: allTickets.recordset, isAdmin: req.session.isAdmin});
+                req.session.loggedIn = true;
+                res.send({loggedIn: req.session.loggedIn, user: req.session.user, tickets: allTickets.recordset, isAdmin: req.session.isAdmin});
             } else {
                 //Obtain Tickets
                 const userTickets = await pool
@@ -87,10 +88,12 @@ export const postLogin =async function(req, res) {
                 .query(queries.getAllUserTickets);
                 req.session.user = result.recordset;
                 req.session.isAdmin = false;
-                res.send({loggedIn:true, user: req.session.user, tickets: userTickets.recordset, isAdmin: req.session.isAdmin});
+                req.session.loggedIn = true;
+                res.send({loggedIn:req.session.loggedIn, user: req.session.user, tickets: userTickets.recordset, isAdmin: req.session.isAdmin});
             }
             
         } else {
+            
             res.send({message:"User doesn't exist"});
         }
     } catch(error){

@@ -1,6 +1,6 @@
 import usersRoutes from '../src/routes/usersroutes.js';
 import ticketsRoutes from '../src/routes/ticketsroutes';
-import app from './app.js';
+import app from './MiddleWares/app.js';
 import config from './config'
 
 //Routes

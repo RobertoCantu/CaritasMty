@@ -18,7 +18,8 @@
     "msnodesqlv8": "^2.4.1",
     "mssql": "^7.2.1",
     "mysql": "^2.18.1",
-    "mysql2": "^2.3.0"
+    "mysql2": "^2.3.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.0",
