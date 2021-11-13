@@ -60,24 +60,27 @@ export const postLogin =async function(req, res) {
         if(result.recordset.length > 0){
             const usernameId = result.recordset[0].UserId;
             const userEmail = result.recordset[0].Email;
-            //Obtain Tickets
-            const tickets = await pool
-            .request()
-            .input("UsernameId", usernameId)
-            .query(queries.getAllUserTickets);
-            console.log(tickets.recordset)
-            //console.log(tickets);
-            //console.log(userEmail);
-            //console.log(result.recordset)
+            
             //Check if user is admin
             if(admin.includes(userEmail)){
-                req.session.user = result.recordset;
+                console.log("Entro aqui")
+                //Obtain Tickets
+                const allTickets = await pool
+                .request()
+                .query(queries.getAllTickets);
+                console.log(allTickets.recordset)
+                req.session.user = allTickets.recordset;
                 req.session.isAdmin = true;
-                res.send({loggedIn:true, user: req.session.user, tickets: tickets.recordset, isAdmin: req.session.isAdmin});
+                res.send({loggedIn:true, user: req.session.user, tickets: allTickets.recordset, isAdmin: req.session.isAdmin});
             } else {
+                //Obtain Tickets
+                const userTickets = await pool
+                .request()
+                .input("UsernameId", usernameId)
+                .query(queries.getAllUserTickets);
                 req.session.user = result.recordset;
                 req.session.isAdmin = false;
-                res.send({loggedIn:true, user: req.session.user, tickets: tickets.recordset, isAdmin: req.session.isAdmin});
+                res.send({loggedIn:true, user: req.session.user, tickets: userTickets.recordset, isAdmin: req.session.isAdmin});
             }
             
         } else {
