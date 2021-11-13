@@ -28,6 +28,7 @@ function Login() {
             userPassword: data.password,
         }).
         then((res,err) => {
+            console.log(res);
             if(err){
                 console.log(err);
             }

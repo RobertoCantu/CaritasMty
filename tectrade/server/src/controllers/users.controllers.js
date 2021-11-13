@@ -6,21 +6,22 @@ const admin = ["gerardo@caritas.com","sara@caritas.com"];
 export const getLogin = async (req,res) =>{
     //const userId = await req.body
     //Verify if a session already exists
-    console.log(req.session);
+    //console.log(req.session);
     if(req.session.user){
         const usernameId = req.session.user[0].UserId;
-        console.log(usernameId);
+        //console.log(usernameId);
         try {
             const pool = await getConnection();
             const result = await pool
               .request()
               .input("UsernameId", usernameId)
               .query(queries.getAllUserTickets);
-              console.log(result);
+              //console.log(result);
             if (result.recordset.length > 0) {
-                res.send({loggedIn:true, user: req.session.user, tickets: result.recordset});
+               // console.log(result.recordset);
+                res.send({loggedIn:true, user: req.session.user, tickets: result.recordset, isAdmin: req.session.isAdmin});
             } else {
-                res.send({loggedIn:true, user: req.session.user, tickets: []})
+                res.send({loggedIn:true, user: req.session.user, tickets: [], isAdmin: req.session.isAdmin})
             }
           } catch (e) {
             res.status(500);
@@ -50,12 +51,20 @@ export const postLogin =async function(req, res) {
         .query(queries.getUser);
 
         if(result.recordset.length > 0){
+            const userEmail = result.recordset[0].Email;
+            //console.log(userEmail);
+            //console.log(result.recordset)
+            //Check if user is admin
+            if(admin.includes(userEmail)){
+                req.session.user = result.recordset;
+                req.session.isAdmin = true;
+                res.send(result.recordset);
+            } else {
+                req.session.user = result.recordset;
+                req.session.isAdmin = false;
+                res.send(result.recordset);
+            }
             
-            req.session.user = result.recordset;
-            req.session.isAdmin = false;
-            
-            //console.log(req.session.user);
-            res.send(result.recordset);
         } else {
             res.send({message:"User doesn't exist"});
         }
