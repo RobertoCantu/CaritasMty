@@ -36,14 +36,17 @@ function Login() {
                 console.log("Username doesnt exist");
                 setUserNotExist(true);
             } else {
+               
                 const user = res.data.user[0];
                 const tickets = res.data.tickets;
+                const isAdmin = res.data.isAdmin;
                 setUser({
                     id: user.UserId,
                     email: user.Email,
                     firstName: user.FirstName,
                     lastName: user.LastName,
                     tickets: tickets,
+                    isAdmin: isAdmin,
                     loggedIn:true});
                 history.push("/");
             }

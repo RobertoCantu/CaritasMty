@@ -17,6 +17,7 @@ import TicketForm from './components/TicketForm/TicketForm';
 import EmployeeTickets from './components/EmployeeTickets/EmployeeTickets';
 import TicketDetails from './components/TicketDetails/TicketDetails';
 import EmployeeHome from './components/EmployeeHome/EmployeeHome';
+import HomeWrapper from './components/HomeWrapper/HomeWrapper';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
     firstName: "",
     lastName: "",
     loggedIn: null,
+    isAdmin: null,
     tickets: [],
   });
   let history = useHistory();
@@ -61,20 +63,6 @@ function App() {
       console.log(err);
     })
 }, []);
-
- 
-//     Axios.get(`http://localhost:3001/${user.id}/tickets`).
-//       then((res) => {
-//         setUser({ ...user, tickets: res.data });
-//       }).catch(error => {
-//         console.log(error);
-//       })
- 
-
-
-
-
-
 
 
   if(user.loggedIn === null){
@@ -136,7 +124,7 @@ function App() {
       >
         
         <UserContext.Provider value={{user}}>
-        <EmployeeHome></EmployeeHome>
+        <HomeWrapper/>
         </UserContext.Provider>
         </PrivateRoute>
       <Route path="*" exact component={PageNotFound} />
