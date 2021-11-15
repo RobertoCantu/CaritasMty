@@ -11,22 +11,21 @@ function EmployeeTickets() {
 
   //Obtain tickets information
   useEffect(() => {
-    Axios.get(`http://localhost:3001/${user.id}/tickets`).
-      then((res) => {
+
+    Axios.get(`http://localhost:3001/${user.id}/tickets`)
+      .then((res) => {
         setUser({ ...user, tickets: res.data });
       }).catch(error => {
         console.log(error);
       })
   }, []);
 
-  console.log(user);
-
   function deleteClick(ticket) {
     Axios.delete(`http://localhost:3001/deleteTicket/${ticket.TicketId}`)
       .then((res) => {
         console.log(res.data.messageSuccess);
-        Axios.get(`http://localhost:3001/${user.id}/tickets`).
-          then((res) => {
+        Axios.get(`http://localhost:3001/${user.id}/tickets`)
+          .then((res) => {
             setUser({ ...user, tickets: res.data });
           }).catch(error => {
             console.log(error);

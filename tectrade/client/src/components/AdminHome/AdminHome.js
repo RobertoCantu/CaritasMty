@@ -3,7 +3,7 @@ import { UserContext } from '../../Helper/Context'
 
 function AdminHome() {
     const {user} = useContext(UserContext);
-    const pendingTickets = user.tickets.filter(ticket => ticket.Status == false);
+    const pendingTickets = user.tickets.filter(ticket => ticket.Status === false);
     console.log(pendingTickets);
     return (
         <div>

@@ -7,15 +7,15 @@ import Axios from 'axios';
 
 const NavBar = ({isAuth}) => {
   //UseContext api
-  const {user,setUser} = useContext(UserContext);
+  const {setUser} = useContext(UserContext);
   Axios.defaults.withCredentials = true;
 
   //This function changes the object User and set loggedIn attribute to false
   //and also elimantes the user cookie from local storage
   const logOut = (e) => {
     sessionStorage.removeItem('UserId'); 
-    Axios.get('http://localhost:3001/logout').
-    then((res) =>{
+    Axios.get('http://localhost:3001/logout')
+    .then((res) =>{
       setUser({loggedIn:false});
     }).catch(err => console.log(err));
     

@@ -1,17 +1,14 @@
-
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle'
 import NavBar from './components/Navbar/Navbar.js';
-import {BrowserRouter as Router, Switch,Route} from 'react-router-dom';
+import {BrowserRouter as Router, Switch} from 'react-router-dom';
 import PageNotFound from './components/PageNotFound/PageNotFound';
 import Login from './components/Login/Login';
 import Axios from 'axios';
 import {useState, useEffect} from 'react';
-import {useHistory} from 'react-router-dom';
 import PublicRoute from './Routes/PublicRoute';
 import PrivateRoute from './Routes/PrivateRoute';
-import AdminRoute from './Routes/AdminRoute';
 import EmpRoute from './Routes/EmpRoute';
 import {UserContext} from './Helper/Context';
 import TicketForm from './components/TicketForm/TicketForm';
@@ -22,6 +19,7 @@ import HomeWrapper from './components/HomeWrapper/HomeWrapper';
 
 function App() {
  
+  
   const [user,setUser] = useState({
     id: "",
     email: "",
@@ -31,17 +29,14 @@ function App() {
     isAdmin: null,
     tickets: [],
   });
-  //let history = useHistory();
   Axios.defaults.withCredentials = true;
 
   
 //Obtain user information
   useEffect(() => {
-    Axios.get("http://localhost:3001/login").
-    then(res => {
-      //console.log(res.data);
-      
-        if(res.data.loggedIn == true){
+    Axios.get("http://localhost:3001/login")
+    .then(res => {  
+        if(res.data.loggedIn === true){
           const userInfo = res.data.user;
           const tickets = res.data.tickets;
           const isAdmin = res.data.isAdmin;
@@ -61,9 +56,9 @@ function App() {
           
         }
     }).catch(err => {
-      //console.log(err);
+      console.log(err);
     })
-}, []);
+}, [user.loggedIn]);
 
 
   if(user.loggedIn === null){
@@ -93,9 +88,12 @@ function App() {
         exact path="/create" 
         isAuth={user.loggedIn}
         isAdmin={user.isAdmin}
+        
         >
         <UserContext.Provider value={{user}}>
           <TicketForm/>
+
+
           </UserContext.Provider>
         </EmpRoute>
 
