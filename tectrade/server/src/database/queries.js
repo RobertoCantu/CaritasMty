@@ -3,5 +3,6 @@ export const queries = {
   getAllUserTickets: "SELECT tickets.TicketId,tickets.Title,tickets.Description,tickets.Date,tickets.Status FROM users INNER JOIN tickets ON users.UserId = tickets.UserId WHERE users.UserId = @UsernameId AND tickets.UserId = @UsernameId",
   getAllTickets: "SELECT users.UserId,users.FirstName,users.LastName,users.Email,tickets.TicketId,tickets.Title,tickets.Department,tickets.Description,tickets.Date,tickets.Status FROM users INNER JOIN tickets ON users.UserId = tickets.UserId",
   createTicket: "INSERT INTO tickets (Title,Department,Description,Date,Status,UserId) VALUES (@TicketTitle,@TicketDepartment,@TicketDescription,@TicketDate,@TicketStatus,@TicketUserId) ",
-  deleteTicket: "DELETE FROM tickets WHERE TicketId = @TicketId"
+  deleteTicket: "DELETE FROM tickets WHERE TicketId = @TicketId",
+  editTicket: "UPDATE tickets SET Title = @TicketTitle, Department = @TicketDepartment, Description = @TicketDescription WHERE TicketId = @TicketId"
 };

@@ -1,7 +1,8 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import Axios from 'axios'
 import { UserContext } from '../../Helper/Context';
 import { Link } from 'react-router-dom';
+import TicketEdit from '../TicketEdit/TicketEdit';
 
 
 function EmployeeTickets() {
@@ -9,14 +10,14 @@ function EmployeeTickets() {
   const { user, setUser } = useContext(UserContext);
 
   //Obtain tickets information
-  // useEffect(() => {
-  //   Axios.get(`http://localhost:3001/${user.id}/tickets`).
-  //     then((res) => {
-  //       setUser({ ...user, tickets: res.data });
-  //     }).catch(error => {
-  //       console.log(error);
-  //     })
-  // }, []);
+  useEffect(() => {
+    Axios.get(`http://localhost:3001/${user.id}/tickets`).
+      then((res) => {
+        setUser({ ...user, tickets: res.data });
+      }).catch(error => {
+        console.log(error);
+      })
+  }, []);
 
   console.log(user);
 
@@ -37,8 +38,16 @@ function EmployeeTickets() {
     // console.log(ticket.TicketId);
   }
 
+  const [editing, setEditing] = useState(false);
+  const [ticketClicked, setTicketClicked] = useState(null);
+
   function editClick(ticket) {
-    console.log(ticket);
+    setTicketClicked(ticket);
+    changeEditing();
+  }
+
+  function changeEditing() {
+    setEditing(!editing);
   }
 
 
@@ -66,6 +75,8 @@ function EmployeeTickets() {
           </div>
         }
       </div>
+
+      {editing && <TicketEdit ticket={ticketClicked} changeEdit={editing => setEditing(editing)} />}
 
     </div>
   )

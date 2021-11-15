@@ -64,7 +64,7 @@ export const deleteTicket = async (req, res) => {
       .request()
       .input("TicketId", ticketId)
       .query(queries.deleteTicket);
-      console.log(result);
+    console.log(result);
     if (result.rowsAffected.length > 0) {
       res.send({ messageSuccess: "Ticket borrado" });
     } else {
@@ -79,8 +79,27 @@ export const deleteTicket = async (req, res) => {
 };
 
 // Route for editing ticket
-/*
 export const editTicket = async (req, res) => {
   const ticketId = req.params.ticketId;
+  const { ticketTitle, ticketDepartment, ticketDescription, ticketDate } = req.body;
+
+  try {
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .input("TicketTitle", sql.VarChar, ticketTitle)
+      .input("TicketDepartment", sql.VarChar, ticketDepartment)
+      .input("TicketDescription", sql.VarChar, ticketDescription)
+      .input("TicketDate", sql.Date, ticketDate)
+      .input("TicketId", ticketId)
+      .query(queries.editTicket);
+
+    if (result) {
+      res.send({ messageSuccess: "Ticket editado" });
+    }
+  } catch (e) {
+    res.status(500);
+    res.send(e.message);
+  }
 };
-*/
+

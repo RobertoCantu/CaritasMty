@@ -12,7 +12,7 @@ const router = Router();
 
 router.get("/:usernameId/tickets", getAllUserTickets);
 router.post("/createTicket", formValidation(ticketSchema), createTicket);
-// router.put("editTicket/:ticketId", editTicket);
+router.put("/editTicket/:ticketId", editTicket);
 router.delete("/deleteTicket/:ticketId", deleteTicket);
 
 export default router;
