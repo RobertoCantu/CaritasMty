@@ -1,4 +1,4 @@
-import React, {useState,useContext,useEffect} from 'react'
+import React, {useState,useContext} from 'react'
 import Axios from 'axios';
 import {UserContext} from '../../Helper/Context';
 import {useForm} from 'react-hook-form'
@@ -25,8 +25,8 @@ function TicketForm() {
             ticketDescription: data.description,
             ticketDate: data.date,
             ticketUserId: user.id
-        }).
-        then((res,err) => {
+        })
+        .then((res,err) => {
             if(err){
                 console.log(err);
             } 

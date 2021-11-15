@@ -2,7 +2,6 @@ import React, {useState,useContext} from 'react'
 import {useHistory} from 'react-router-dom';
 import './Login.css'
 import  Axios  from 'axios';
-//import * as yup from 'yup'
 import { userSchema } from '../../Validations/UserValidation';
 import {UserContext} from '../../Helper/Context';
 import {useForm} from 'react-hook-form'
@@ -12,7 +11,7 @@ function Login() {
    
     
     const [userNotExist, setUserNotExist] = useState(false);
-    const {user,setUser} = useContext(UserContext);
+    const {setUser} = useContext(UserContext);
     let history = useHistory();
     Axios.defaults.withCredentials = true;
     
@@ -26,8 +25,8 @@ function Login() {
             Axios.post('http://localhost:3001/login',{
             userEmail: data.email,
             userPassword: data.password,
-        }).
-        then((res,err) => {
+        })
+        .then((res,err) => {
            // console.log(res.data);
             if(err){
                 console.log(err);
