@@ -29,11 +29,17 @@ function App() {
     isAdmin: null,
     tickets: [],
   });
+
+  const [test,setTest] = useState({
+    id: 1,
+    name: "Rob",
+  })
   Axios.defaults.withCredentials = true;
 
   
 //Obtain user information
   useEffect(() => {
+    console.log("Correct Trigger");
     Axios.get("http://localhost:3001/login")
     .then(res => {  
         if(res.data.loggedIn === true){
@@ -52,13 +58,13 @@ function App() {
               loggedIn:true});
               
         } else {
-          setUser({loggedIn:false});
-          
+          console.log("Trigger");
+          setUser({tickets:[],loggedIn:false});
         }
     }).catch(err => {
       console.log(err);
     })
-}, [user.loggedIn]);
+}, [user.loggedIn,user.tickets.length]);
 
 
   if(user.loggedIn === null){
