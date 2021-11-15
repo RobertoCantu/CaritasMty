@@ -41,7 +41,7 @@ function TicketForm() {
     return (
         <div className="">
             {success && 
-            <div class="alert alert-success" role="alert">
+            <div className="alert alert-success" role="alert">
                 Ticket Creado exitosamente
             </div>}
             <form onSubmit={handleSubmit(submitForm)}>
