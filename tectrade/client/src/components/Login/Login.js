@@ -63,10 +63,10 @@ function Login() {
                 </div>}
                 <label htmlFor="email" className="sr-only"></label>
                 <input type="email" className="form-control" {...register('email')} placeholder="Email" autoFocus  />
-                <p> {errors?.email?.message} </p>
+                <p className="empty"> {errors?.email?.message} </p>
                 <label htmlFor="password"></label>
                 <input type="password" placeholder="Password" {...register('password')}  className="form-control" />
-                <p>{errors?.password?.message} </p>
+                <p className="empty">{errors?.password?.message} </p>
                 <div className="mt-3">
                     <input  type="submit" className="btn btn-lg btn-primary col-12" value="Login"/>
                 </div>
