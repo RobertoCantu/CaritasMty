@@ -4,5 +4,6 @@ export const queries = {
   getAllTickets: "SELECT users.UserId,users.FirstName,users.LastName,users.Email,tickets.TicketId,tickets.Title,tickets.Department,tickets.Description,tickets.Date,tickets.Status FROM users INNER JOIN tickets ON users.UserId = tickets.UserId",
   createTicket: "INSERT INTO tickets (Title,Department,Description,Date,Status,UserId) VALUES (@TicketTitle,@TicketDepartment,@TicketDescription,@TicketDate,@TicketStatus,@TicketUserId) ",
   deleteTicket: "DELETE FROM tickets WHERE TicketId = @TicketId",
-  editTicket: "UPDATE tickets SET Title = @TicketTitle, Department = @TicketDepartment, Description = @TicketDescription WHERE TicketId = @TicketId"
+  editTicket: "UPDATE tickets SET Title = @TicketTitle, Department = @TicketDepartment, Description = @TicketDescription WHERE TicketId = @TicketId",
+  resolveTicket: "UPDATE tickets SET Status = 1 WHERE TicketId = @TicketId"
 };
