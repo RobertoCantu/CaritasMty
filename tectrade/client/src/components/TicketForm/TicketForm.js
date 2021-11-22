@@ -48,7 +48,7 @@ function TicketForm() {
                 <div  className="mb-3 form-outline ">
                     <label  className="form-label">Nombre del incidente: </label>
                     <input type="text" {...register('title')} className="form-control" />
-                    <p>{errors?.title?.message}</p>
+                    <p className="empty">{errors?.title?.message}</p>
                 </div>
                 <div className="mb-3">
                     <label  className="form-label">Departamento </label>
@@ -59,18 +59,18 @@ function TicketForm() {
                         <option value="Recursos Humanos">Recursos Humanos</option>
                         <option value="Sistemas">Sistemas</option>
                     </select>
-                    <p>{errors?.department?.message}</p>
+                    <p className="empty">{errors?.department?.message}</p>
                 </div>
                 <div className="mb-3">
                     <label className="form-label">Descripcion: </label>
                     <textarea className="form-control" {...register('description')}  id="exampleFormControlTextarea1" rows="3"></textarea>
-                    <p>{errors?.description?.message}</p>
+                    <p className="empty">{errors?.description?.message}</p>
 
                 </div>
                 <div className="mb-3">
                     <label className="form-label">Fecha: </label>
                     <input type="date"  {...register('date')}  className="form-control" rows="3"/>
-                    <p>{errors?.date?.message}</p>
+                    <p className="empty">{errors?.date?.message}</p>
                 </div>
                 
                 <button type="submit" className="btn btn-primary">Enviar</button>
