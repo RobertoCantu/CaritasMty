@@ -24,6 +24,26 @@ export const getAllUserTickets = async (req, res) => {
 
 };
 
+export const getAllTickets = async (req, res) => {
+
+  try {
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .query(queries.getAllTickets);
+    if (result.recordset.length > 0) {
+      res.send(result.recordset);
+    } else {
+      res.send(result.recordset);
+    }
+  } catch (e) {
+    res.status(500);
+    res.send(e.message);
+  }
+
+
+};
+
 //Route for creating Ticket
 export const createTicket = async (req, res) => {
   //console.log(req.body);
@@ -103,3 +123,21 @@ export const editTicket = async (req, res) => {
   }
 };
 
+export const resolveTicket = async (req, res) => {
+  const ticketId = req.params.ticketId;
+
+  try {
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .input("TicketId", ticketId)
+      .query(queries.resolveTicket);
+
+    if (result) {
+      res.send({ messageSuccess: "Ticket resuelto" });
+    }
+  } catch (e) {
+    res.status(500);
+    res.send(e.message);
+  }
+};
