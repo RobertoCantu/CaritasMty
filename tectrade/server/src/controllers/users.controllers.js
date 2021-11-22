@@ -64,7 +64,7 @@ export const postLogin = async function (req, res) {
             .input("Password", userPassword)
             .query(queries.getUser);
 
-        console.log(result);
+       // console.log(result);
         if (result.recordset.length > 0) {
             const usernameId = result.recordset[0].UserId;
             const userEmail = result.recordset[0].Email;
