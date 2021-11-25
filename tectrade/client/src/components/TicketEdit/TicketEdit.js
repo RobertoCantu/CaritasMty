@@ -10,6 +10,8 @@ function TicketEdit({ ticket, changeEdit }) {
     const { user, setUser } = useContext(UserContext);
     Axios.defaults.withCredentials = true;
     const [success, setSuccess] = useState(false);
+    const [title, setTitle] = useState(ticket.Title);
+    const [desc, setDesc] = useState(ticket.Description);
 
     //Front end Validation
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
@@ -55,7 +57,7 @@ function TicketEdit({ ticket, changeEdit }) {
                     <form onSubmit={handleSubmit(submitForm)}>
                         <div className="mb-3 form-outline ">
                             <label className="form-label">Nombre del incidente: </label>
-                            <input type="text" placeholder={ticket.Title} {...register('title')} className="form-control" />
+                            <input type="text" value={title} {...register('title')} className="form-control" onChange={e => setTitle(e.target.value)} />
                             <p>{errors ?.title ?.message}</p>
                         </div>
                         <div className="mb-3">
@@ -71,13 +73,13 @@ function TicketEdit({ ticket, changeEdit }) {
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Descripcion: </label>
-                            <textarea className="form-control" placeholder={ticket.Description} {...register('description')} id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <textarea className="form-control" value={desc} {...register('description')} id="exampleFormControlTextarea1" rows="3" onChange={e => setDesc(e.target.value)}></textarea>
                             <p>{errors ?.description ?.message}</p>
 
                         </div>
                         <div className="mb-3">
                             <label className="form-label">Fecha: </label>
-                            <input type="date" placeholder={ticket.Date} {...register('date')} className="form-control" rows="3" />
+                            <input type="date" defaultValue={ticket.Date} {...register('date')} className="form-control" rows="3" />
                             <p>{errors ?.date ?.message}</p>
                         </div>
 
