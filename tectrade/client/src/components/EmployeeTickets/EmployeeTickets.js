@@ -51,14 +51,13 @@ function EmployeeTickets() {
   }
 
 
-
   return (
     <div >
       <h1 className="title">Mis tickets</h1>
       <div className="container">
         {user.tickets.length ? user.tickets.map(ticket => (
           <div key={ticket.TicketId} className="card m-3" style={{ width: '18rem' }}>
-            <img className="card-img-top" src="..." alt="Card image cap" />
+            {/* <img className="card-img-top" src="..." alt="Card image cap" /> */}
             <div className="card-body">
               <Link to={`tickets/${ticket.TicketId}`}><h5 className="card-title">{ticket.Title}</h5></Link>
               <p className="card-text">{ticket.Description}</p>

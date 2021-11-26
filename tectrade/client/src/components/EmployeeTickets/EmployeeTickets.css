@@ -12,3 +12,7 @@
     flex-direction: row; 
     justify-content: center; 
 }
+
+.card {
+    border: solid #009CA6 4px;
+}

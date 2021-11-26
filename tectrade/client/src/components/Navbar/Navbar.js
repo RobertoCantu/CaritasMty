@@ -46,10 +46,10 @@ const NavBar = ({ isAuth }) => {
                 <Link className="nav-link" to="/create">Ticket</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/tickets">My Tickets</Link>
+                <Link className="nav-link" to="/tickets">Mis Tickets</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/AboutUs">About us</Link>
+                <Link className="nav-link" to="/AboutUs">Sobre nosotros</Link>
               </li>
 
 
