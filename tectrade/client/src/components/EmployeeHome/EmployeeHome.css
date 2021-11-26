@@ -1,0 +1,27 @@
+.pending {
+    border: solid red 4px;
+}
+
+.resolved {
+    border: solid green 4px;
+}
+
+.title {
+    text-align: center; 
+    padding: 10px; 
+}
+
+.ticketRow {
+    display: flex; 
+    justify-content: center; 
+}
+
+.card {
+    text-align: center;
+    color: #888B8D;
+}
+
+.card-title, .card-title:link, .card-title:visited, .card-title:active{
+    color: #003B5C; 
+    text-decoration: none;
+}
