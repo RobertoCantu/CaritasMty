@@ -17,9 +17,19 @@ function TicketDetails() {
   return (
     <div className="container col-12">
       {result.length ? (
-        <h1>{result[0].Title}</h1>
+        <div className="card m-3" style={{ width: "23rem" }}>
+          <h1 className="card-text" style={{ margin: "10px 10px 10px 10px" }}>
+            {result[0].Title}
+          </h1>
+          <p className="card-text" style={{ margin: "10px 10px 10px 10px" }}>
+            {result[0].Description}
+          </p>
+        </div>
       ) : (
-        <h1 className="container row justify-content-center">
+        <h1
+          className="container row justify-content-center"
+          style={{ marginTop: "5%" }}
+        >
           Lo sentimos {user.firstName}, no existe Ticket con el id: {id}
         </h1>
       )}

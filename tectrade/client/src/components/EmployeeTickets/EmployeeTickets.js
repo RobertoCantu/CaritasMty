@@ -51,7 +51,12 @@ function EmployeeTickets() {
 
   return (
     <div className="container col">
-      <h1 className="container row justify-content-center">My Tickets</h1>
+      <h1
+        className="container row justify-content-center"
+        style={{ marginTop: "3%" }}
+      >
+        My Tickets
+      </h1>
       <div className="container row justify-content-center">
         {user.tickets.length ? (
           user.tickets.map((ticket) => (
@@ -60,35 +65,41 @@ function EmployeeTickets() {
               className="card m-3"
               style={{ width: "18rem" }}
             >
-              <img className="card-img-top" src="..." alt="Card image cap" />
               <div className="card-body">
                 <Link to={`tickets/${ticket.TicketId}`}>
                   <h5 className="card-title">{ticket.Title}</h5>
                 </Link>
+              </div>
+              <img className="card-img-top" src="..." alt="Card image cap" />
+              <div className="card-body">
                 <p className="card-text">{ticket.Description}</p>
                 <a
                   href="#"
                   className="btn btn-info"
                   onClick={() => editClick(ticket)}
+                  style={{ marginRight: "10px" }}
                 >
-                  Edit
+                  Editar
                 </a>
                 <a
                   href="#"
                   className="btn btn-danger"
                   onClick={() => deleteClick(ticket)}
                 >
-                  Delete
+                  Borrar
                 </a>
               </div>
             </div>
           ))
         ) : (
           <div className="container col">
-            <h1>Hey {user.firstName} you haven't create any Tickets</h1>
-            <h2>If you have a problem please create a Ticket on this button</h2>
+            <h1>Hey {user.firstName} no has creado ningún Ticket</h1>
+            <h2>
+              Si tienes algun problema, puedes crear un nuevo Ticket con el
+              botón de abajo
+            </h2>
             <Link to={"/create"}>
-              <button type="button" className="btn btn-success">
+              <button type="button" className="btn primary">
                 Ticket
               </button>
             </Link>
