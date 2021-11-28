@@ -1,9 +1,8 @@
-import React, { useEffect, useContext, useState } from 'react'
-import Axios from 'axios'
-import { UserContext } from '../../Helper/Context';
-import { Link } from 'react-router-dom';
-import TicketEdit from '../TicketEdit/TicketEdit';
-
+import React, { useEffect, useContext, useState } from "react";
+import Axios from "axios";
+import { UserContext } from "../../Helper/Context";
+import { Link } from "react-router-dom";
+import TicketEdit from "../TicketEdit/TicketEdit";
 
 function EmployeeTickets() {
   //Context api
@@ -11,13 +10,13 @@ function EmployeeTickets() {
 
   //Obtain tickets information
   useEffect(() => {
-
     Axios.get(`http://localhost:3001/${user.id}/tickets`)
       .then((res) => {
         setUser({ ...user, tickets: res.data });
-      }).catch(error => {
-        console.log(error);
       })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   function deleteClick(ticket) {
@@ -27,13 +26,14 @@ function EmployeeTickets() {
         Axios.get(`http://localhost:3001/${user.id}/tickets`)
           .then((res) => {
             setUser({ ...user, tickets: res.data });
-          }).catch(error => {
-            console.log(error);
           })
-
-      }).catch(err => {
-        console.log(err);
+          .catch((error) => {
+            console.log(error);
+          });
       })
+      .catch((err) => {
+        console.log(err);
+      });
     // console.log(ticket.TicketId);
   }
 
@@ -49,36 +49,72 @@ function EmployeeTickets() {
     setEditing(!editing);
   }
 
-
-
   return (
-    <div >
-      <h1>My tickets</h1>
-      <div className="container row">
-        {user.tickets.length ? user.tickets.map(ticket => (
-          <div key={ticket.TicketId} className="card m-3" style={{ width: '18rem' }}>
-            <img className="card-img-top" src="..." alt="Card image cap" />
-            <div className="card-body">
-              <Link to={`tickets/${ticket.TicketId}`}><h5 className="card-title">{ticket.Title}</h5></Link>
-              <p className="card-text">{ticket.Description}</p>
-              <a href="#" className="btn btn-info" onClick={() => editClick(ticket)}>Edit</a>
-              <a href="#" className="btn btn-danger" onClick={() => deleteClick(ticket)}>Delete</a>
+    <div className="container col">
+      <h1
+        className="container row justify-content-center"
+        style={{ marginTop: "3%" }}
+      >
+        My Tickets
+      </h1>
+      <div className="container row justify-content-center">
+        {user.tickets.length ? (
+          user.tickets.map((ticket) => (
+            <div
+              key={ticket.TicketId}
+              className="card m-3"
+              style={{ width: "18rem" }}
+            >
+              <div className="card-body">
+                <Link to={`tickets/${ticket.TicketId}`}>
+                  <h5 className="card-title">{ticket.Title}</h5>
+                </Link>
+              </div>
+              <img className="card-img-top" src="..." alt="Card image cap" />
+              <div className="card-body">
+                <p className="card-text">{ticket.Description}</p>
+                <a
+                  href="#"
+                  className="btn btn-info"
+                  onClick={() => editClick(ticket)}
+                  style={{ marginRight: "10px" }}
+                >
+                  Editar
+                </a>
+                <a
+                  href="#"
+                  className="btn btn-danger"
+                  onClick={() => deleteClick(ticket)}
+                >
+                  Borrar
+                </a>
+              </div>
             </div>
+          ))
+        ) : (
+          <div className="container col">
+            <h1>Hey {user.firstName} no has creado ningún Ticket</h1>
+            <h2>
+              Si tienes algun problema, puedes crear un nuevo Ticket con el
+              botón de abajo
+            </h2>
+            <Link to={"/create"}>
+              <button type="button" className="btn primary">
+                Ticket
+              </button>
+            </Link>
           </div>
-        ))
-          :
-          <div>
-            <h1>Hey {user.firstName} you haven't create any Ticket</h1>
-            <h2>If you have a problem please create a Ticket on this button</h2>
-            <Link to={'/create'}><button type="button" className="btn btn-success">Ticket</button></Link>
-          </div>
-        }
+        )}
       </div>
 
-      {editing && <TicketEdit ticket={ticketClicked} changeEdit={editing => setEditing(editing)} />}
-
+      {editing && (
+        <TicketEdit
+          ticket={ticketClicked}
+          changeEdit={(editing) => setEditing(editing)}
+        />
+      )}
     </div>
-  )
+  );
 }
 
-export default EmployeeTickets
+export default EmployeeTickets;

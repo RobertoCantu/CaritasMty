@@ -7,27 +7,27 @@ form {
   background-color: white;
 }
 
-body{
+body {
   background-color: #cdedf2;
 }
 
-.empty{
+.empty {
   margin-top: 10px;
-  color: tomato;
+  color: #ff7f32;
 }
 
-.mt-3{
+.btn {
   margin-top: 5%;
 }
 
-@media screen and (min-width:768px) and (max-width:1024px){
+@media screen and (min-width: 768px) and (max-width: 1024px) {
   form {
     max-width: 60%;
   }
 }
 
-@media screen and (min-width:1024px) {
-  form{
+@media screen and (min-width: 1024px) {
+  form {
     max-width: 40%;
   }
 }
