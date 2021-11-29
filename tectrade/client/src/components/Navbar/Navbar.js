@@ -31,8 +31,11 @@ const NavBar = ({ isAuth }) => {
   return (
     <div>
       {isAuth && !user.isAdmin ? (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <div className="container-fluid">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-light">
+          <div
+            className="container-fluid"
+            style={{ padding: "10px 5px 10px 5px" }}
+          >
             <Link className="navbar-brand" to="/">
               Caritas
             </Link>
@@ -81,8 +84,11 @@ const NavBar = ({ isAuth }) => {
       ) : (
         <div>
           {isAuth && user.isAdmin ? (
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-              <div className="container-fluid">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-light">
+              <div
+                className="container-fluid"
+                style={{ padding: "10px 5px 10px 5px" }}
+              >
                 <Link className="navbar-brand" to="/">
                   Caritas
                 </Link>
@@ -123,8 +129,11 @@ const NavBar = ({ isAuth }) => {
               </div>
             </nav>
           ) : (
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-              <div className="container-fluid">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-light">
+              <div
+                className="container-fluid"
+                style={{ padding: "10px 5px 10px 5px" }}
+              >
                 <a className="navbar-brand" href="#">
                   Caritas
                 </a>
