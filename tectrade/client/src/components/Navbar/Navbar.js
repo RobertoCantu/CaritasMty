@@ -3,6 +3,7 @@ import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../Helper/Context";
 import Axios from "axios";
+import Logo from "../../Assets/logoCaritas.png";
 
 const NavBar = ({ isAuth }) => {
   //UseContext api
@@ -34,10 +35,15 @@ const NavBar = ({ isAuth }) => {
         <nav className="navbar navbar-expand-lg navbar-dark bg-light">
           <div
             className="container-fluid"
-            style={{ padding: "10px 5px 10px 5px" }}
+            style={{ padding: "1px 1px 1px 1px" }}
           >
             <Link className="navbar-brand" to="/">
-              Caritas
+              <img
+                src={Logo}
+                width={"80"}
+                height={"70"}
+                alt="logoCaritas.png"
+              ></img>
             </Link>
             <button
               className="navbar-toggler"
@@ -87,10 +93,15 @@ const NavBar = ({ isAuth }) => {
             <nav className="navbar navbar-expand-lg navbar-dark bg-light">
               <div
                 className="container-fluid"
-                style={{ padding: "10px 5px 10px 5px" }}
+                style={{ padding: "1px 1px 1px 1px" }}
               >
                 <Link className="navbar-brand" to="/">
-                  Caritas
+                  <img
+                    src={Logo}
+                    width={"80"}
+                    height={"70"}
+                    alt="logoCaritas.png"
+                  ></img>
                 </Link>
                 <button
                   className="navbar-toggler"
@@ -132,10 +143,15 @@ const NavBar = ({ isAuth }) => {
             <nav className="navbar navbar-expand-lg navbar-dark bg-light">
               <div
                 className="container-fluid"
-                style={{ padding: "10px 5px 10px 5px" }}
+                style={{ padding: "1px 1px 1px 1px" }}
               >
                 <a className="navbar-brand" href="#">
-                  Caritas
+                  <img
+                    src={Logo}
+                    width={"80"}
+                    height={"70"}
+                    alt="logoCaritas.png"
+                  ></img>
                 </a>
                 <button
                   className="navbar-toggler"

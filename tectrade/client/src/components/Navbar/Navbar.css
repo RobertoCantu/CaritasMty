@@ -5,3 +5,7 @@ img {
 .container-fluid {
   background-color: #009ca6;
 }
+
+img {
+  margin-left: 10px;
+}
