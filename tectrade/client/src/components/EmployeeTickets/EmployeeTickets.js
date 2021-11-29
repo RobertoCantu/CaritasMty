@@ -67,10 +67,9 @@ function EmployeeTickets() {
             >
               <div className="card-body">
                 <Link to={`tickets/${ticket.TicketId}`}>
-                  <h5 className="card-title">{ticket.Title}</h5>
+                  <h4 className="card-title">{ticket.Title}</h4>
                 </Link>
               </div>
-              <img className="card-img-top" src="..." alt="Card image cap" />
               <div className="card-body">
                 <p className="card-text">{ticket.Description}</p>
                 <a

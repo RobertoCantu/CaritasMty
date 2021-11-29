@@ -54,10 +54,9 @@ function EmployeeHome() {
                 className="card m-3"
                 style={{ width: "23rem" }}
               >
-                <img className="card-img-top" src="..." alt="Card image cap" />
                 <div className="card-body">
                   <Link to={`tickets/${pend.TicketId}`}>
-                    <h5 className="card-title">{pend.Title}</h5>
+                    <h4 className="card-title">{pend.Title}</h4>
                   </Link>
                   <p>{pend.Description}</p>
                   <a

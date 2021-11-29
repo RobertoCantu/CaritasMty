@@ -67,27 +67,8 @@ const NavBar = ({ isAuth }) => {
                     My Tickets
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/AboutUs">
-                    About us
-                  </Link>
-                </li>
               </ul>
               <ul className="navbar-nav  ">
-                <li className="nav-item">
-                  <Link
-                    className="nav-link active"
-                    aria-current="page"
-                    to="/Account"
-                  >
-                    My Account
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/Help">
-                    Help
-                  </Link>
-                </li>
                 <li className="nav-item">
                   <Link onClick={logOut} className="nav-link" to="">
                     Log out
@@ -132,20 +113,6 @@ const NavBar = ({ isAuth }) => {
                     </li>
                   </ul>
                   <ul className="navbar-nav  ">
-                    <li className="nav-item">
-                      <Link
-                        className="nav-link active"
-                        aria-current="page"
-                        to="/Account"
-                      >
-                        My Account
-                      </Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link className="nav-link" to="/Help">
-                        Help
-                      </Link>
-                    </li>
                     <li className="nav-item">
                       <Link onClick={logOut} className="nav-link" to="">
                         Log out
