@@ -3,6 +3,7 @@ import Axios from "axios";
 import { UserContext } from "../../Helper/Context";
 import { Link } from "react-router-dom";
 import TicketEdit from "../TicketEdit/TicketEdit";
+import "./EmployeeTickets.css"
 
 function EmployeeTickets() {
   //Context api
@@ -55,14 +56,14 @@ function EmployeeTickets() {
         className="container row justify-content-center"
         style={{ marginTop: "3%" }}
       >
-        My Tickets
+        Mis Tickets
       </h1>
       <div className="container row justify-content-center">
         {user.tickets.length ? (
           user.tickets.map((ticket) => (
             <div
               key={ticket.TicketId}
-              className="card m-3"
+              className={"card m-3 " + (ticket.Status ? 'solved' : 'pending')}
               style={{ width: "18rem" }}
             >
               <div className="card-body">
@@ -91,19 +92,19 @@ function EmployeeTickets() {
             </div>
           ))
         ) : (
-          <div className="container col">
-            <h1>Hey {user.firstName} no has creado ningún Ticket</h1>
-            <h2>
-              Si tienes algun problema, puedes crear un nuevo Ticket con el
-              botón de abajo
+            <div className="container col">
+              <h1>Hey {user.firstName} no has creado ningún Ticket</h1>
+              <h2>
+                Si tienes algun problema, puedes crear un nuevo Ticket con el
+                botón de abajo
             </h2>
-            <Link to={"/create"}>
-              <button type="button" className="btn primary">
-                Ticket
+              <Link to={"/create"}>
+                <button type="button" className="btn primary">
+                  Ticket
               </button>
-            </Link>
-          </div>
-        )}
+              </Link>
+            </div>
+          )}
       </div>
 
       {editing && (

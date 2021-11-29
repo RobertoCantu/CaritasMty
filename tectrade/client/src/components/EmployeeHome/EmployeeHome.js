@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { UserContext } from "../../Helper/Context";
 import { Link } from "react-router-dom";
 import Axios from "axios";
+import "./EmployeeHome.css"
 
 function EmployeeHome() {
   const { user, setUser } = useContext(UserContext);
@@ -31,11 +32,11 @@ function EmployeeHome() {
         </h1>
         {user.tickets.length ? (
           <div className="row justify-content-center">
-            <h1 style={{ marginTop: "2%" }}>Tickets Pendientes</h1>
+            <h1 className="subtitle">Tickets Pendientes</h1>
             {pendingTickets.map((pend) => (
               <div
                 key={pend.TicketId}
-                className="card m-3"
+                className="card m-3 pending"
                 style={{ width: "23rem" }}
               >
                 <div className="card-body" key={pend.TicketId}>
@@ -47,11 +48,11 @@ function EmployeeHome() {
                 </div>
               </div>
             ))}
-            <h1 style={{ marginTop: "2%" }}>Tickets Resueltos</h1>
+            <h1 className="subtitle">Tickets Resueltos</h1>
             {resolvedTickets.map((pend) => (
               <div
                 key={pend.TicketId}
-                className="card m-3"
+                className="card m-3 solved"
                 style={{ width: "23rem" }}
               >
                 <div className="card-body">
@@ -59,22 +60,15 @@ function EmployeeHome() {
                     <h4 className="card-title">{pend.Title}</h4>
                   </Link>
                   <p>{pend.Description}</p>
-                  <a
-                    href="#"
-                    className="btn btn-danger"
-                    onClick={() => deleteClick(pend)}
-                  >
-                    Borrar
-                  </a>
                 </div>
               </div>
             ))}
           </div>
         ) : (
-          <h1 className="container row justify-content-center">
-            No hay tickets
+            <h1 className="container row justify-content-center">
+              No hay tickets
           </h1>
-        )}
+          )}
       </div>
     </div>
   );

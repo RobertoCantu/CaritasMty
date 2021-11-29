@@ -1,0 +1,7 @@
+.pending {
+    border: 5px solid #ff595e;
+}
+
+.solved {
+    border: 5px solid #66bb6a;
+}
