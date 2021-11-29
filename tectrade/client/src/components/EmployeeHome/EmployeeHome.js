@@ -40,7 +40,7 @@ function EmployeeHome() {
                 style={{ width: "23rem" }}
               >
                 <div className="card-body" key={pend.TicketId}>
-                  <Link to={`tickets/${pend.TicketId}`}>
+                  <Link className="link" to={`tickets/${pend.TicketId}`}>
                     <h4>{pend.Title}</h4>
                   </Link>
                   <h5>{pend.Department}</h5>
@@ -56,7 +56,7 @@ function EmployeeHome() {
                 style={{ width: "23rem" }}
               >
                 <div className="card-body">
-                  <Link to={`tickets/${pend.TicketId}`}>
+                  <Link className="link" to={`tickets/${pend.TicketId}`}>
                     <h4 className="card-title">{pend.Title}</h4>
                   </Link>
                   <p>{pend.Description}</p>

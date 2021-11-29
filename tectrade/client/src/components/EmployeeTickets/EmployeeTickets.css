@@ -5,3 +5,7 @@
 .solved {
     border: 5px solid #66bb6a;
 }
+
+.link {
+    text-decoration: none; 
+}

@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../Helper/Context";
 import Axios from "axios";
+import "./AdminHome.css"
 
 function AdminHome() {
     const { user, setUser } = useContext(UserContext);
@@ -36,15 +37,15 @@ function AdminHome() {
                                 style={{ width: "23rem" }}
                             >
                                 <div className="card-body" key={pend.TicketId}>
-                                    <h4>{pend.Title}</h4>
-                                    <h5>{pend.Department}</h5>
+                                    <h4 className="title">{pend.Title}</h4>
+                                    <h5 className="dept" style={{ color: "#FF7F32" }}>{pend.Department}</h5>
                                     <p className="card-text">{pend.Description}</p>
                                     <button
                                         className="btn btn-primary"
                                         onClick={() => resolveTicket(pend)}
                                     >
                                         Resolver
-                  </button>
+                                    </button>
                                 </div>
                             </div>
                         ))}

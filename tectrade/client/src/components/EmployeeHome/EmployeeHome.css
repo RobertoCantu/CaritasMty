@@ -14,3 +14,9 @@
 .solved {
     border: 5px solid #66bb6a;
 }
+
+.link h4{
+    text-decoration: none; 
+    color: #009CA6; 
+    font-weight: bold; 
+}

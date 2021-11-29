@@ -67,27 +67,31 @@ function EmployeeTickets() {
               style={{ width: "18rem" }}
             >
               <div className="card-body">
-                <Link to={`tickets/${ticket.TicketId}`}>
+                <Link className="link" to={`tickets/${ticket.TicketId}`}>
                   <h4 className="card-title">{ticket.Title}</h4>
                 </Link>
               </div>
               <div className="card-body">
                 <p className="card-text">{ticket.Description}</p>
-                <a
-                  href="#"
-                  className="btn btn-info"
-                  onClick={() => editClick(ticket)}
-                  style={{ marginRight: "10px" }}
-                >
-                  Editar
+                <div>
+                  {!ticket.Status &&
+                    <a
+                      href="#"
+                      className="btn btn-info"
+                      onClick={() => editClick(ticket)}
+                      style={{ marginRight: "10px" }}
+                    >
+                      Editar
+                  </a>
+                  }
+                  <a
+                    href="#"
+                    className="btn btn-danger"
+                    onClick={() => deleteClick(ticket)}
+                  >
+                    Borrar
                 </a>
-                <a
-                  href="#"
-                  className="btn btn-danger"
-                  onClick={() => deleteClick(ticket)}
-                >
-                  Borrar
-                </a>
+                </div>
               </div>
             </div>
           ))
